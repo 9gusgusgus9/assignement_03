@@ -1,0 +1,3 @@
+Photoresistor pin 5
+Led pin 20
+TMP pin 7
