@@ -17,13 +17,12 @@ Thermometer* tmp = new Thermometer(TMP_PIN);
 DeviceBuilder* dev = new DeviceBuilder();
 const char* ssid = "iPhone di Gustavo";
 const char* password = "qwertyui";
-String serverPath = "http://172.20.10.3:5000";
+String serverPath = "http://172.20.10.4:5000";
 String getLight = "/lightstatus";
 String getTemperature = "/temperaturestatus";
 unsigned long timeOfLastRequest = 0;
 
 void connectToWifi(const char* ssid, const char* password){
-
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   Serial.println("Connecting to WiFi..");
@@ -50,7 +49,6 @@ void getStatus(String str){
 }
 
 int sendData(String type, float value){  
-  
    	HTTPClient http;
    	http.begin(serverPath + "/" + type);      
    	http.addHeader("Content-Type", "application/json");
@@ -62,7 +60,6 @@ int sendData(String type, float value){
 		Serial.println("Error on HTTP request");
 	}
    	http.end();
-
    	return retCode;
 }
 
