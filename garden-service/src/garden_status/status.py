@@ -5,34 +5,32 @@ class GardenStatus(Enum):
     AUTO = "AUTO"
     ALARM = "ALARM"
 
-    switcher = {
-        "MANUAL": Status.MANUAL,
-        "AUTO": Status.AUTO,
-        "ALARM": Status.ALARM
-    }
-
     @staticmethod
     def fromString(status):
-        return switcher[status]
+        if status == "MANUAL":
+            return GardenStatus.MANUAL
+        elif status == "AUTO":
+            return GardenStatus.AUTO
+        elif status == "ALARM":
+            return GardenStatus.ALARM
 
     def toString(self):
         return self.value
 
 
 class IrrigatorStatus(Enum):
-    READY = "READY"
+    PAUSED = "PAUSED"
     OPEN = "OPEN"
     CLOSED = "CLOSED"
 
-    switcher = {
-        "READY": IrrigatorStatus.READY,
-        "OPEN": IrrigatorStatus.OPEN,
-        "CLOSED": IrrigatorStatus.CLOSED
-    }
-
     @staticmethod
     def fromString(status):
-        return switcher[status]
+        if status == "PAUSED":
+            return IrrigatorStatus.PAUSED
+        elif status == "OPEN":
+            return IrrigatorStatus.OPEN
+        elif status == "CLOSED":
+            return IrrigatorStatus.CLOSED
     
     def toString(self):
         return self.value
@@ -42,14 +40,12 @@ class LedStatus(Enum):
     ON = "ON"
     OFF = "OFF"
 
-    switcher = {
-        "ON": LedStatus.ON,
-        "OFF": LedStatus.OFF
-    }
-
     @staticmethod
     def fromString(status):
-        return switcher[status]
+        if status == "ON":
+            return LedStatus.ON
+        elif status == "OFF":
+            return LedStatus.OFF
 
     def toString(self):
         return self.value
