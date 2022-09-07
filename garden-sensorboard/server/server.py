@@ -18,6 +18,7 @@ def getData():
 def getData():
    temperature = request.json["temperature"]
    luminosity = request.json["luminosity"]
+   print("Temperature: " + temperature + " Luminosity: " + luminosity)
    status = "AUTO"
    return status
 

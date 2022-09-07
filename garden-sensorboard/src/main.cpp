@@ -37,7 +37,7 @@ int sendData(float temperature, float luminosity){
    	HTTPClient http;
    	http.begin(serverPath + "/data");      
    	http.addHeader("Content-Type", "application/json");
-   	int retCode = http.POST("{\"temperature\":\"" + String(temperature) + "\"\"luminosity\":\"" + String(luminosity) + "\"}");
+   	int retCode = http.POST("{\"temperature\":\"" + String(temperature) + "\", \"luminosity\":\"" + String(luminosity) + "\"}");
 	if(retCode > 0) {
 		String payload = http.getString();
 		Serial.println(payload);
@@ -55,7 +55,7 @@ void setup() {
 }
 
 void loop() {
-	if(millis() - timeOfLastRequest > 100){
+	if(millis() - timeOfLastRequest > 10000){
 		device->compute();
 		if(WiFi.status() == WL_CONNECTED){
 			sendData(tmp->getTemperature(), photoresistor->getLight());
