@@ -1,19 +1,201 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        * {
+            font-family: monospace;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        hr {
+            border-top: 2px solid black;
+        }
+
+        .auto {
+            background-color: rgb(192, 255, 192);
+        }
+
+        .manual {
+            background-color: rgb(255, 192, 128);
+        }
+
+        .alarm {
+            background-color: rgb(255, 128, 128);
+        }
+
+        .title {
+            font-size: 3em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        #container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        span {
+            margin-bottom: .25em;
+        }
+
+        .status {
+            display: block;
+            width: 100%;
+            margin-top: 1em;
+        }
+
+            .status > h2 {
+                width: 100%;
+                font-size: 2.5em;
+                text-align: center;
+            }
+
+        .container_line {
+            margin-top: 2em;
+            padding: 1em;
+            border: 2px solid black;
+        }
+
+        body > div > div > h2 {
+            font-size: 2.5em;
+            text-align: center;
+        }
+
+        .line {
+            display: inline-block;
+            margin-top: 1em;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .sensorboard {
+            width: 50%;
+        }
+
+            .sensorboard > h3 {
+                display: inline-block;
+                width: 100%;
+                font-size: 2em;
+            }
+
+            .sensorboard > span {
+                display: inline-block;
+                width: 100%;
+                font-size: 3em;
+            }
+
+        .leds {
+            width: 50%;
+        }
+
+            .leds > h3 {
+                display: inline-block;
+                width: 100%;
+                font-size: 2em;
+            }
+
+            .leds > span {
+                display: inline-block;
+                width: 100%;
+                font-size: 3em;
+            }
+
+        .irrigator {
+            width: 50%;
+        }
+
+            .irrigator > h3 {
+                display: inline-block;
+                width: 100%;
+                font-size: 2em;
+            }
+
+            .irrigator > span {
+                display: inline-block;
+                width: 100%;
+                font-size: 3em;
+            }
+    </style>
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <base href="/garden-dashboard/">
-    <link rel="stylesheet" href="file:///C:/Users/Gustavo/Documents/Uni/IOT/Assignement/assignement_03/garden-dashboard/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
-    <script src="file:///C:/Users/Gustavo/Documents/Uni/IOT/Assignement/assignement_03/garden-dashboard/main.js" defer></script>
+    <script>
+        const source = new EventSource("/sse");
+        source.onmessage = function (event) {
+            var data = JSON.parse(event.data);
+
+            for (let key in data) {
+                switch (key) {
+                    case "status":
+                        updateStatus(data[key]);
+                        $("#status").text(data[key]);
+                        break;
+                    case "led1":
+                        $("#led1").text(data[key] == 1 ? "ON" : "OFF");
+                        break;
+                    case "led2":
+                        $("#led2").text(data[key] == 1 ? "ON" : "OFF");
+                        break;
+                    case "led3":
+                        $("#led3").text(data[key] * 25 + "%");
+                        break;
+                    case "led4":
+                        $("#led4").text(data[key] * 25 + "%");
+                        break;
+                    default:
+                        $("#" + key).text(data[key]);
+                }
+            }
+        };
+
+        // get request to /dashboard-status
+        const dashboardStatus = new XMLHttpRequest();
+        dashboardStatus.open("GET", "/dashboard-status");
+        dashboardStatus.onload = function () {
+            const data = JSON.parse(dashboardStatus.responseText);
+
+            $("#status").text(data.status);
+            updateStatus(data.status);
+
+            $("#light").text(data.light);
+            $("#temperature").text(data.temperature);
+
+            $("#led1").text(data.led1 == 1 ? "ON" : "OFF");
+            $("#led2").text(data.led2 == 1 ? "ON" : "OFF");
+            $("#led3").text(data.led3);
+            $("#led4").text(data.led4);
+
+            $("#irrigator_status").text(data.irrigator_status);
+            $("#irrigator_speed").text(data.irrigation_speed);
+        }
+        dashboardStatus.send();
+
+        function updateStatus(status) {
+            $("body").removeClass();
+            switch (status) {
+                case "AUTO":
+                    $("body").addClass("auto");
+                    break;
+                case "MANUAL":
+                    $("body").addClass("manual");
+                    break;
+                case "ALARM":
+                    $("body").addClass("alarm");
+                    break;
+            }
+        }
+    </script>
 </head>
 <body class="auto">
     <h1 class="title">Dashboard</h1>
-    
+
     <div id="container">
         <div class="status">
-            <h2>Status: <span id="status"></span></h2> 
+            <h2>Status: <span id="status"></span></h2>
         </div>
 
         <div class="container_line">
@@ -22,7 +204,7 @@
                 <h3>Light (0-7)</h3>
                 <span id="light"></span>
             </div><div class="line sensorboard">
-                <h3>Temperature (1-5)</h3> 
+                <h3>Temperature (1-5)</h3>
                 <span id="temperature"></span>
             </div>
         </div>
