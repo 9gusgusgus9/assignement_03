@@ -64,12 +64,12 @@ int sendData(String type, float value){
 void setup() {
 	Serial.begin(115200);
   	connectToWifi(ssid, password);
+	device->setup();
 }
 
 void loop() {
 	if(millis() - timeOfLastRequest > 100){
-		tmp->compute();
-		photoresistor->compute();
+		device->compute();
 		if(WiFi.status() == WL_CONNECTED){
 			sendData("light", photoresistor->getLight());
 			sendData("temperature", tmp->getTemperature());
