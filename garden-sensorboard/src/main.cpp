@@ -33,19 +33,6 @@ void connectToWifi(const char* ssid, const char* password){
   Serial.println(WiFi.localIP());
 }
 
-void getStatus(String str){
-	HTTPClient http;
-	http.begin((serverPath + str).c_str());
-	int httpCode = http.GET();
-	if(httpCode > 0) {
-		String payload = http.getString();
-		Serial.println(payload);
-	}else{
-		Serial.println("Error on HTTP request");
-	}
-	http.end();
-}
-
 int sendData(String type, float value){  
    	HTTPClient http;
    	http.begin(serverPath + "/" + type);      
