@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <base href="/garden-dashboard/">
+    <link rel="stylesheet" href="file:///C:/Users/Gustavo/Documents/Uni/IOT/Assignement/assignement_03/garden-dashboard/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+    <script src="file:///C:/Users/Gustavo/Documents/Uni/IOT/Assignement/assignement_03/garden-dashboard/main.js" defer></script>
+</head>
+<body class="auto">
+    <h1 class="title">Dashboard</h1>
+    
+    <div id="container">
+        <div class="status">
+            <h2>Status: <span id="status"></span></h2> 
+        </div>
+
+        <div class="container_line">
+            <h2>Sensorboard</h2>
+            <div class="line sensorboard">
+                <h3>Light (0-7)</h3>
+                <span id="light"></span>
+            </div><div class="line sensorboard">
+                <h3>Temperature (1-5)</h3> 
+                <span id="temperature"></span>
+            </div>
+        </div>
+
+        <div class="container_line">
+            <h2>Led</h2>
+            <div class="line leds">
+                <h3>LED 1 (ON, OFF)</h3> <span id="led1"></span>
+            </div><div class="line leds">
+                <h3>LED 2 (ON, OFF)</h3> <span id="led2"></span>
+            </div><div class="line leds">
+                <h3>LED 3 (0-100%)</h3> <span id="led3"></span>
+            </div><div class="line leds">
+                <h3>LED 4 (0-100%)</h3> <span id="led4"></span>
+            </div>
+        </div>
+
+        <div class="container_line">
+            <h2>Irrigator</h2>
+            <div class="line irrigator">
+                <h3>Irrigator (OPEN, CLOSED, READY)</h3> <span id="irrigator_status"></span>
+            </div><div class="line irrigator">
+                <h3>Irrigator speed (0-4)</h3> <span id="irrigation_speed"></span>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
