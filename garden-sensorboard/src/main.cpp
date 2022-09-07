@@ -33,11 +33,11 @@ void connectToWifi(const char* ssid, const char* password){
   Serial.println(WiFi.localIP());
 }
 
-int sendData(String type, float value){  
+int sendData(float temperature, float luminosity){  
    	HTTPClient http;
-   	http.begin(serverPath + "/" + type);      
+   	http.begin(serverPath + "/data");      
    	http.addHeader("Content-Type", "application/json");
-   	int retCode = http.POST("{\"value\":\"" + String(value) + "\"}");
+   	int retCode = http.POST("{\"temperature\":\"" + String(temperature) + "\"\"luminosity\":\"" + String(luminosity) + "\"}");
 	if(retCode > 0) {
 		String payload = http.getString();
 		Serial.println(payload);
@@ -58,8 +58,7 @@ void loop() {
 	if(millis() - timeOfLastRequest > 100){
 		device->compute();
 		if(WiFi.status() == WL_CONNECTED){
-			sendData("light", photoresistor->getLight());
-			sendData("temperature", tmp->getTemperature());
+			sendData(tmp->getTemperature(), photoresistor->getLight());
 			timeOfLastRequest = millis();
 		} else {
 			Serial.println("WiFi Disconnected... Reconnecting");
