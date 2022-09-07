@@ -2,7 +2,7 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-#include "device/DeviceBuilder.h"
+#include "device/Device.h"
 #include "components/actuator/led/Led.h"
 #include "components/sensor/photoresistor/Photoresistor.h"
 #include "components/sensor/thermometer/Thermometer.h"
@@ -14,12 +14,10 @@
 Led* led = new Led(LED_PIN);
 Photoresistor* photoresistor = new Photoresistor(PHOTO_PIN);
 Thermometer* tmp = new Thermometer(TMP_PIN);
-DeviceBuilder* dev = new DeviceBuilder();
+Device* device = new Device(led, tmp, photoresistor);
 const char* ssid = "iPhone di Gustavo";
 const char* password = "qwertyui";
 String serverPath = "http://172.20.10.4:5000";
-String getLight = "/lightstatus";
-String getTemperature = "/temperaturestatus";
 unsigned long timeOfLastRequest = 0;
 
 void connectToWifi(const char* ssid, const char* password){
@@ -69,7 +67,7 @@ void setup() {
 }
 
 void loop() {
-	if(millis() - timeOfLastRequest > 10000){
+	if(millis() - timeOfLastRequest > 100){
 		tmp->compute();
 		photoresistor->compute();
 		if(WiFi.status() == WL_CONNECTED){
