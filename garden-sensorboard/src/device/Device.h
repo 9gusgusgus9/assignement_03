@@ -17,37 +17,17 @@ class Device {
 
     public:
 
-    const char* ssid = "Nome_WIFI";
-    const char* password = "password";
+    Device(Led* led, Thermometer* thermometer, Photoresistor* photoresistor);
 
-    Device(Led* led, Thermometer* thermometer, Photoresistor* photoresistor){
-        this->led = led;
-        this->thermometer = thermometer;
-        this->photoresistor = photoresistor;
-    }
+    void setup();
 
-    void setup(){
-        this->led->setup();
-        this->thermometer->setup();
-        this->photoresistor->setup();
-    }
+    void compute();
 
-    void compute(){
-        this->thermometer->compute();
-        this->photoresistor->compute();
-    }
+    Led* getLed();
 
-    Led* getLed(){
-        return this->led;
-    }
+    Thermometer* getThermometer();
 
-    Thermometer* getThermometer(){
-        return this->thermometer;
-    }
-
-    Photoresistor* getPhotoresistor(){
-        return this->photoresistor;
-    }
+    Photoresistor* getPhotoresistor();
 };
 
 #endif
