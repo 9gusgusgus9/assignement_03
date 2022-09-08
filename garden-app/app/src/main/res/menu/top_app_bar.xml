@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/alarm"
+        android:icon="@drawable/ic_baseline_notifications_none_24"
+        android:title="@string/alarm"
+        app:showAsAction="ifRoom"
+        android:contentDescription="@string/alarm"
+        />
+
+    <item
+        android:id="@+id/manual"
+        android:title="@string/manual_mode"
+        android:icon="@drawable/ic_baseline_emoji_people_24"
+        app:showAsAction="ifRoom"
+        android:contentDescription="@string/set_manual_mode"
+        />
+</menu>
