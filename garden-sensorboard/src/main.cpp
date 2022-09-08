@@ -35,12 +35,19 @@ void connectToWifi(const char* ssid, const char* password){
 
 int sendData(float temperature, float luminosity){  
    	HTTPClient http;
-   	http.begin(serverPath + "/data");      
+   	http.begin(serverPath + "/data");   
    	http.addHeader("Content-Type", "application/json");
    	int retCode = http.POST("{\"temperature\":\"" + String(temperature) + "\", \"luminosity\":\"" + String(luminosity) + "\"}");
+	Serial.println("Temperature" + String(temperature) + "Luminosity" + String(luminosity));
 	if(retCode > 0) {
 		String payload = http.getString();
 		Serial.println(payload);
+		if(payload == "ALARM") {
+			device->getLed()->setState(false);
+		} else {
+			device->getLed()->setState(true);
+		}
+		
 	}else{
 		Serial.println("Error on HTTP request");
 	}
@@ -55,7 +62,7 @@ void setup() {
 }
 
 void loop() {
-	if(millis() - timeOfLastRequest > 10000){
+	if(millis() - timeOfLastRequest > 1000){
 		device->compute();
 		if(WiFi.status() == WL_CONNECTED){
 			sendData(tmp->getTemperature(), photoresistor->getLight());
