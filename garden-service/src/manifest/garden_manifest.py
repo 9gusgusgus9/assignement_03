@@ -1,3 +1,9 @@
+import sys
+import os
+import inspect
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0, parentdir)
 from garden_status.status import GardenStatus, IrrigatorStatus, LedStatus
 
 class Manifest:
@@ -13,7 +19,7 @@ class Manifest:
         self.luminosity = 0
 
         # Controller Status
-        self.irrigatorStatus = IrrigatorStatus.READY
+        self.irrigatorStatus = IrrigatorStatus.PAUSED
         self.controllerLed1 = LedStatus.OFF
         self.controllerLed2 = LedStatus.OFF
         self.controllerLed3 = LedStatus.OFF
@@ -58,15 +64,18 @@ class Manifest:
         return self.luminosity
 
     def setTemperature(self, temperature):
-        self.temperature = temperature
+        self.temperature = int(float(temperature))
 
         #Sarebbe meglio spostare i controlli su server.py
-        if self.temperature > 5 and slef.getIrrigatorStatus != IrrigatorStatus.OPEN:
+        if self.temperature >= 4 and self.getIrrigatorStatus != IrrigatorStatus.OPEN:
             self.setGardenStatus(GardenStatus.ALARM)
             self.setSensorboardLed(LedStatus.OFF)
-    
+        else:
+            self.setGardenStatus(GardenStatus.AUTO)
+            self.setSensorboardLed(LedStatus.ON)
+
     def setLuminosity(self, luminosity):
-        self.luminosity = luminosity
+        self.luminosity = int(float(luminosity))
 
         #sarebbe meglio spostare i controlli su server.py
         if self.luminosity < 5:
