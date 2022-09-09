@@ -154,7 +154,7 @@
 
         // get request to /dashboard-status
         const dashboardStatus = new XMLHttpRequest();
-        dashboardStatus.open("GET", "/dashboard-status");
+        dashboardStatus.open("GET", "/gardenStatus");
         dashboardStatus.onload = function () {
             const data = JSON.parse(dashboardStatus.responseText);
 
@@ -166,8 +166,8 @@
 
             $("#led1").text(data.led1 == 1 ? "ON" : "OFF");
             $("#led2").text(data.led2 == 1 ? "ON" : "OFF");
-            $("#led3").text(data.led3);
-            $("#led4").text(data.led4);
+            $("#led3").text(data.led3 == 1 ? "ON" : "OFF");
+            $("#led4").text(data.led4 == 1 ? "ON" : "OFF");
 
             $("#irrigator_status").text(data.irrigator_status);
             $("#irrigator_speed").text(data.irrigation_speed);
