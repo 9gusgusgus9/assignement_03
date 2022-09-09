@@ -6,14 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <include layout="@layout/topbar" />
-
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        app:layout_anchor="@+id/scrollView2"
+        app:layout_anchor="@+id/scrollView"
         app:layout_anchorGravity="center">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -235,12 +233,12 @@
                 android:backgroundTint="@color/blue"
                 android:text="Open/Close"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/irrigationMinus"
+                app:layout_constraintEnd_toStartOf="@+id/irrigationMeno"
                 app:layout_constraintHorizontal_bias="0.12"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <ImageButton
-                android:id="@+id/irrigationPlus"
+                android:id="@+id/irrigationPiu"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="56dp"
@@ -253,7 +251,7 @@
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageButton
-                android:id="@+id/irrigationMinus"
+                android:id="@+id/irrigationMeno"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginEnd="15dp"
@@ -275,7 +273,7 @@
                 android:textAlignment="center"
                 android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/irrigationPlus" />
+                app:layout_constraintEnd_toStartOf="@+id/irrigationPiu" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
