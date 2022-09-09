@@ -27,6 +27,7 @@ def get_dashboard_files(path):
 
 def compute():
    if manifest.getGardenStatus() == GardenStatus.AUTO:
+      manifest.setSensorboardLed(LedStatus.ON)
       #Luminosity controls
       if manifest.getLuminosity() < 5:
          manifest.setControllerLedOn()
@@ -40,7 +41,17 @@ def compute():
 
       #Temperature controls
       if manifest.getTemperature() == 5 and manifest.getIrrigatorStatus() == IrrigatorStatus.CLOSED:
+         print("Temperature is too high")
          manifest.setGardenStatus(GardenStatus.ALARM)
+   
+   if manifest.getGardenStatus() == GardenStatus.ALARM:
+      manifest.setSensorboardLed(LedStatus.OFF)
+      manifest.setIrrigatorStatus(IrrigatorStatus.CLOSED)
+      manifest.setControllerLedOn()
+      """
+      if manifest.getTemperature() < 5:
+         manifest.setGardenStatus(GardenStatus.AUTO)
+      """
 
 if __name__ == '__main__':
    app.run('0.0.0.0', port=5000)

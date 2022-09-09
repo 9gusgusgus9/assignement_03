@@ -19,7 +19,7 @@ class Manifest:
         self.luminosity = 0
 
         # Controller Status
-        self.irrigatorStatus = IrrigatorStatus.PAUSED
+        self.irrigatorStatus = IrrigatorStatus.CLOSED
         self.controllerLed1 = LedStatus.OFF
         self.controllerLed2 = LedStatus.OFF
         self.controllerLed3 = LedStatus.OFF
