@@ -3,18 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/alarm"
-        android:icon="@drawable/ic_baseline_notifications_none_24"
-        android:title="@string/alarm"
+        android:id="@+id/bluetooth"
+        android:icon="@drawable/ic_baseline_bluetooth_24"
+        android:title="@string/bluetooth"
         app:showAsAction="ifRoom"
-        android:contentDescription="@string/alarm"
+        android:contentDescription="@string/bluetooth"
         />
 
-    <item
-        android:id="@+id/manual"
-        android:title="@string/manual_mode"
-        android:icon="@drawable/ic_baseline_back_hand_24"
-        app:showAsAction="ifRoom"
-        android:contentDescription="@string/set_manual_mode"
-        />
 </menu>

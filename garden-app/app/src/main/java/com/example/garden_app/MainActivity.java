@@ -62,11 +62,13 @@ public class MainActivity extends AppCompatActivity {
         irrigationMeno = findViewById(R.id.irrigationMeno);
         scrollView = findViewById(R.id.scrollView);
 
+        /*if(currentMode == Status.Auto){
+            alarm.setVisibility(View.INVISIBLE);
+        }*/
+
         scrollView.setVisibility(View.INVISIBLE);
 
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,19 +78,40 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.manual) {
-            new AlertDialog.Builder(this).setMessage("Vuoi passare alla modalità manuale?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    scrollView.setVisibility(View.VISIBLE);
-                }
-            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.cancel();
-                }
-            }).show();
-        }
         return false;
     }
+
+
+    /*private void prova (String item){
+        if (item == R.id.bluetooth) {
+            if(currentMode == Status.Manual){
+                new AlertDialog.Builder(this).setMessage("Vuoi passare alla modalità automatica?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        scrollView.setVisibility(View.INVISIBLE);
+                        currentMode = Status.Auto;
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                }).show();
+            } else if(currentMode == Status.Auto){
+                new AlertDialog.Builder(this).setMessage("Vuoi passare alla modalità manuale?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        scrollView.setVisibility(View.VISIBLE);
+                        currentMode = Status.Manual;
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                }).show();
+            }
+        }
+
+    }*/
 }
