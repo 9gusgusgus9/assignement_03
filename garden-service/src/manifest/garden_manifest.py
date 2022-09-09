@@ -19,7 +19,7 @@ class Manifest:
         self.luminosity = 0
 
         # Controller Status
-        self.irrigatorStatus = IrrigatorStatus.PAUSED
+        self.irrigatorStatus = IrrigatorStatus.CLOSED
         self.controllerLed1 = LedStatus.OFF
         self.controllerLed2 = LedStatus.OFF
         self.controllerLed3 = LedStatus.OFF
@@ -44,7 +44,7 @@ class Manifest:
     def setSensorboardLed(self, status):
         self.sensorboardLed = status
 
-    def setControllerLedOn(self, value):
+    def setControllerLedOn(self):
         self.controllerLed1 = LedStatus.ON
         self.controllerLed2 = LedStatus.ON
         self.controllerLed3 = LedStatus.ON
@@ -66,24 +66,5 @@ class Manifest:
     def setTemperature(self, temperature):
         self.temperature = int(float(temperature))
 
-        #Sarebbe meglio spostare i controlli su server.py
-        if self.temperature >= 4 and self.getIrrigatorStatus != IrrigatorStatus.OPEN:
-            self.setGardenStatus(GardenStatus.ALARM)
-            self.setSensorboardLed(LedStatus.OFF)
-        else:
-            self.setGardenStatus(GardenStatus.AUTO)
-            self.setSensorboardLed(LedStatus.ON)
-
     def setLuminosity(self, luminosity):
         self.luminosity = int(float(luminosity))
-
-        #sarebbe meglio spostare i controlli su server.py
-        if self.luminosity < 5:
-            self.setControllerLedOn(luminosity)
-            if self.luminosity < 2:
-                self.setIrrigatorStatus(IrrigatorStatus.OPEN)
-            else:
-                self.setIrrigatorStatus(IrrigatorStatus.CLOSED)
-        else: 
-            self.setControllerLedOff()
-            self.setIrrigatorStatus(IrrigatorStatus.CLOSED)

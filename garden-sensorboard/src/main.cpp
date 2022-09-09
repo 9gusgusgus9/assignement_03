@@ -38,11 +38,11 @@ int sendData(float temperature, float luminosity){
    	http.begin(serverPath + "/data");   
    	http.addHeader("Content-Type", "application/json");
    	int retCode = http.POST("{\"temperature\":\"" + String(temperature) + "\", \"luminosity\":\"" + String(luminosity) + "\"}");
-	Serial.println("Temperature" + String(temperature) + "Luminosity" + String(luminosity));
+	//Serial.println("Temperature" + String(temperature) + "Luminosity" + String(luminosity));
 	if(retCode > 0) {
 		String payload = http.getString();
-		Serial.println(payload);
-		if(payload == "ALARM") {
+		//Serial.println(payload);
+		if(payload == "OFF") {
 			device->getLed()->setState(false);
 		} else {
 			device->getLed()->setState(true);
