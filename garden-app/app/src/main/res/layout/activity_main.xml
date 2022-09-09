@@ -26,35 +26,41 @@
             <TextView
                 android:id="@+id/simpleTextViewLight"
                 android:layout_width="140dp"
-                android:layout_height="33dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="6dp"
                 android:text="@string/light_system"
                 android:textSize="20dp"
-                app:layout_constraintBottom_toTopOf="@+id/divider"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@+id/divider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <View
                 android:id="@+id/divider"
-                android:layout_width="387dp"
+                android:layout_width="0dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="44dp"
+                android:layout_marginBottom="44dp"
                 android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintBottom_toTopOf="@+id/led1_OnOff"
+                app:layout_constraintEnd_toEndOf="@+id/led4_piu"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
                 android:id="@+id/divider2"
-                android:layout_width="393dp"
+                android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="56dp"
+                android:layout_marginBottom="56dp"
                 android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toTopOf="@+id/irrigationButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline2" />
+                app:layout_constraintTop_toTopOf="@+id/guideline2"
+                app:layout_constraintVertical_bias="1.0" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline2"
@@ -63,215 +69,213 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="258dp" />
 
-            <TextView
-                android:id="@+id/led1"
-                android:layout_width="37dp"
-                android:layout_height="21dp"
-                android:layout_marginStart="56dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/led_1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-            <Button
-                android:id="@+id/led1OnOff"
-                android:layout_width="93dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:backgroundTint="@color/blue"
-                android:text="@string/on_off"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/led1" />
-
-            <TextView
-                android:id="@+id/led2"
-                android:layout_width="37dp"
-                android:layout_height="21dp"
-                android:layout_marginStart="56dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/led_2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/led1OnOff" />
-
-            <Button
-                android:id="@+id/led2OnOff"
-                android:layout_width="93dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="12dp"
-                android:backgroundTint="@color/blue"
-                android:text="@string/on_off"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/led2" />
-
-            <TextView
-                android:id="@+id/led3"
-                android:layout_width="37dp"
-                android:layout_height="21dp"
-                android:layout_marginStart="212dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/led_3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-            <ImageButton
-                android:id="@+id/led3plus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="44dp"
-                android:backgroundTint="@color/blue"
-                android:minHeight="48dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.586"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider"
-                app:srcCompat="@drawable/ic_baseline_add_24"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <TextView
-                android:id="@+id/led3Info"
-                android:layout_width="47dp"
-                android:layout_height="41dp"
-                android:layout_marginTop="92dp"
-                android:text=""
-                android:textAlignment="center"
-                android:textSize="30dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.582"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-            <ImageButton
-                android:id="@+id/led3minus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="136dp"
-                android:backgroundTint="@color/blue"
-                android:minHeight="48dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.584"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider"
-                app:srcCompat="@drawable/ic_baseline_remove_24"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <TextView
-                android:id="@+id/led4"
-                android:layout_width="37dp"
-                android:layout_height="21dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="60dp"
-                android:text="@string/led_4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-            <ImageButton
-                android:id="@+id/led4plus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="44dp"
-                android:backgroundTint="@color/blue"
-                android:minHeight="48dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.856"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider"
-                app:srcCompat="@drawable/ic_baseline_add_24"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <TextView
-                android:id="@+id/led4Info"
-                android:layout_width="47dp"
-                android:layout_height="41dp"
-                android:layout_marginTop="92dp"
-                android:text=""
-                android:textAlignment="center"
-                android:textSize="30dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.854"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-            <ImageButton
-                android:id="@+id/led4minus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="136dp"
-                android:backgroundTint="@color/blue"
-                android:minHeight="48dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.856"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider"
-                app:srcCompat="@drawable/ic_baseline_remove_24"
-                tools:ignore="SpeakableTextPresentCheck" />
-
 
             <TextView
                 android:id="@+id/simpleTextViewIrrigation"
                 android:layout_width="211dp"
                 android:layout_height="32dp"
-                android:layout_marginTop="16dp"
-                android:text="Irrigation System"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="113dp"
+                android:layout_marginBottom="113dp"
+                android:text="@string/irrigation_system"
                 android:textSize="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.078"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline2" />
+                app:layout_constraintTop_toTopOf="@+id/text_led4"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/text_led1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginBottom="11dp"
+                android:text="@string/led_1"
+                app:layout_constraintBottom_toTopOf="@+id/led1_OnOff"
+                app:layout_constraintStart_toStartOf="@+id/led1_OnOff" />
+
+            <TextView
+                android:id="@+id/text_led2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="36dp"
+                android:text="@string/led_2"
+                app:layout_constraintEnd_toEndOf="@+id/led2_OnOff"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+            <Button
+                android:id="@+id/led1_OnOff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginBottom="26dp"
+                android:backgroundTint="@color/blue"
+                android:text="@string/on_off"
+                app:layout_constraintBottom_toTopOf="@+id/text_led3"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/led2_OnOff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/blue"
+                android:text="@string/on_off"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/led1_OnOff"
+                app:layout_constraintTop_toBottomOf="@+id/text_led2" />
+
+            <TextView
+                android:id="@+id/text_led3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="@string/led_3"
+                app:layout_constraintBottom_toTopOf="@+id/led3_info"
+                app:layout_constraintStart_toStartOf="@+id/led3_info" />
+
+            <TextView
+                android:id="@+id/text_led4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="12dp"
+                android:text="@string/led_4"
+                app:layout_constraintBottom_toTopOf="@+id/led4_info"
+                app:layout_constraintEnd_toEndOf="@+id/led4_info" />
+
+            <ImageButton
+                android:id="@+id/led3_meno"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="11dp"
+                android:backgroundTint="@color/blue"
+                android:src="@drawable/ic_baseline_remove_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/led3_info"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/led3_piu"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="1dp"
+                android:backgroundTint="@color/blue"
+                android:src="@drawable/ic_baseline_add_24"
+                app:layout_constraintBottom_toBottomOf="@+id/led3_info"
+                app:layout_constraintEnd_toStartOf="@+id/led4_meno"
+                app:layout_constraintStart_toEndOf="@+id/led3_info"
+                app:layout_constraintTop_toTopOf="@+id/led4_meno"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/led3_info"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="9dp"
+                android:text=""
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/led3_piu"
+                app:layout_constraintStart_toEndOf="@+id/led3_meno"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/led4_info"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="15dp"
+                android:text=""
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/led4_piu"
+                app:layout_constraintStart_toEndOf="@+id/led4_meno"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/led4_meno"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="15dp"
+                android:backgroundTint="@color/blue"
+                android:src="@drawable/ic_baseline_remove_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/led4_info"
+                app:layout_constraintStart_toEndOf="@+id/led3_piu"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/led4_piu"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/blue"
+                android:src="@drawable/ic_baseline_add_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/led4_info"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
+
 
             <Button
                 android:id="@+id/irrigationButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="40dp"
                 android:backgroundTint="@color/blue"
                 android:text="Open/Close"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider2" />
-
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/irrigationMinus"
+                app:layout_constraintHorizontal_bias="0.12"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageButton
                 android:id="@+id/irrigationPlus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="56dp"
+                android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/blue"
                 android:minHeight="48dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.835"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider2"
                 app:srcCompat="@drawable/ic_baseline_add_24"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageButton
                 android:id="@+id/irrigationMinus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="56dp"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="40dp"
                 android:backgroundTint="@color/blue"
                 android:minHeight="48dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.58"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/irrigationInfo"
                 app:srcCompat="@drawable/ic_baseline_remove_24"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
                 android:id="@+id/irrigationInfo"
-                android:layout_width="47dp"
-                android:layout_height="41dp"
-                android:layout_marginTop="56dp"
+                android:layout_width="10dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="40dp"
                 android:text=""
                 android:textAlignment="center"
                 android:textSize="30dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.71"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider2" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/irrigationPlus" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

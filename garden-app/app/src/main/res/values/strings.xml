@@ -10,4 +10,5 @@
     <string name="led_4">LED 4</string>
     <string name="manual_mode">Manual mode</string>
     <string name="set_manual_mode">Set Manual Mode</string>
+    <string name="irrigation_system">Irrigation System</string>
 </resources>
