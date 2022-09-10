@@ -3,6 +3,7 @@ import sys
 import os
 import inspect
 import json
+import redis
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
@@ -10,8 +11,9 @@ from manifest.garden_manifest import Manifest
 from garden_status.status import *
 
 app = Flask(__name__)
-
+db = redis.Redis("redis")
 manifest = Manifest()
+
 
 @app.route('/gardenStatus', methods=['GET'])
 def getGardenStatus():
@@ -32,6 +34,13 @@ def getGardenStatus():
     )
 
 
+@app.route('/')
+def serve_dashboard():
+    return send_from_directory('../../../garden-dashboard', 'index.html')
+
+
+
+
 @app.route('/data', methods=['POST'])
 def getData():
    temperature = request.json["temperature"]
@@ -50,7 +59,7 @@ def compute():
       manifest.setSensorboardLed(LedStatus.ON)
       #Luminosity controls
       if manifest.getLuminosity() < 5:
-         manifest.setControllerLedOn()
+         manifest.setControllerLedOn(5 - manifest.getLuminosity())
          if manifest.getLuminosity() < 2 :
             if manifest.getIrrigatorStatus() == IrrigatorStatus.CLOSED:
                manifest.setIrrigatorStatus(IrrigatorStatus.OPEN)
@@ -67,7 +76,7 @@ def compute():
    if manifest.getGardenStatus() == GardenStatus.ALARM:
       manifest.setSensorboardLed(LedStatus.OFF)
       manifest.setIrrigatorStatus(IrrigatorStatus.CLOSED)
-      manifest.setControllerLedOn()
+      manifest.setControllerLedOn(5 - manifest.getLuminosity())
       
 
 if __name__ == '__main__':
