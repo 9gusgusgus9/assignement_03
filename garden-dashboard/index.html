@@ -124,33 +124,7 @@
     <base href="/garden-dashboard/">
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
     <script>
-        const source = new EventSource("/sse");
-        source.onmessage = function (event) {
-            var data = JSON.parse(event.data);
-
-            for (let key in data) {
-                switch (key) {
-                    case "status":
-                        updateStatus(data[key]);
-                        $("#status").text(data[key]);
-                        break;
-                    case "led1":
-                        $("#led1").text(data[key] == 1 ? "ON" : "OFF");
-                        break;
-                    case "led2":
-                        $("#led2").text(data[key] == 1 ? "ON" : "OFF");
-                        break;
-                    case "led3":
-                        $("#led3").text(data[key] * 25 + "%");
-                        break;
-                    case "led4":
-                        $("#led4").text(data[key] * 25 + "%");
-                        break;
-                    default:
-                        $("#" + key).text(data[key]);
-                }
-            }
-        };
+        
 
         // get request to /dashboard-status
         const dashboardStatus = new XMLHttpRequest();
@@ -164,10 +138,10 @@
             $("#light").text(data.light);
             $("#temperature").text(data.temperature);
 
-            $("#led1").text(data.led1 == 1 ? "ON" : "OFF");
-            $("#led2").text(data.led2 == 1 ? "ON" : "OFF");
-            $("#led3").text(data.led3 == 1 ? "ON" : "OFF");
-            $("#led4").text(data.led4 == 1 ? "ON" : "OFF");
+            $("#led1").text(data.led1);
+            $("#led2").text(data.led2);
+            $("#led3").text(data.led3);
+            $("#led4").text(data.led4);
 
             $("#irrigator_status").text(data.irrigator_status);
             $("#irrigator_speed").text(data.irrigation_speed);
