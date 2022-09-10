@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             alarm.setVisibility(View.INVISIBLE);
         }*/
 
-        scrollView.setVisibility(View.INVISIBLE);
+        //scrollView.setVisibility(View.INVISIBLE);
 
     }
 

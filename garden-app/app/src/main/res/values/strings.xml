@@ -12,4 +12,5 @@
     <string name="set_manual_mode">Set Manual Mode</string>
     <string name="irrigation_system">Irrigation System</string>
     <string name="bluetooth">Connecting Bluetooth</string>
+    <string name="auto_mode">Auto mode</string>
 </resources>
