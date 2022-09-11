@@ -3,8 +3,8 @@ package com.example.garden_app;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,6 +22,13 @@ public class MainActivity extends AppCompatActivity {
     private int irrigationVal;
     private Status currentMode;
 
+    private Button auto;
+    private Button manual;
+    private ImageButton alarm;
+    private TextView status;
+
+    private ScrollView scrollView;
+    private ConstraintLayout constraintLayout;
     private Button led1;
     private Button led2;
     private ImageButton led3Meno;
@@ -35,19 +42,23 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton irrigationPiu;
     private ImageButton irrigationMeno;
 
-    private Button alarm;
-    private Button manualMode;
-    private ScrollView scrollView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        currentMode = Status.Auto;
+        currentMode = Status.Alarm;
         if(this != null){
             Utilities.setUpToolBar(this, "Smart Garden");
         }
 
+        constraintLayout = findViewById(R.id.constraintLayoutFirst);
+        auto = findViewById(R.id.button_auto);
+        manual = findViewById(R.id.button_manual);
+        alarm = findViewById(R.id.button_alarm);
+        status = findViewById(R.id.text_status);
+        scrollView = findViewById(R.id.scrollView);
         led1 = findViewById(R.id.led1_OnOff);
         led2 = findViewById(R.id.led2_OnOff);
         led3Piu = findViewById(R.id.led3_piu);
@@ -60,13 +71,29 @@ public class MainActivity extends AppCompatActivity {
         irrigation = findViewById(R.id.irrigationButton);
         irrigationPiu = findViewById(R.id.irrigationPiu);
         irrigationMeno = findViewById(R.id.irrigationMeno);
-        scrollView = findViewById(R.id.scrollView);
+        constraintLayout.setVisibility(View.INVISIBLE);
 
-        /*if(currentMode == Status.Auto){
-            alarm.setVisibility(View.INVISIBLE);
-        }*/
+        auto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setAutoMode();
+            }
+        });
 
-        //scrollView.setVisibility(View.INVISIBLE);
+        manual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setManualMode();
+            }
+        });
+
+        alarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                status.setText("ALARM DEACTIVATE!");
+                auto.setVisibility(View.VISIBLE);
+            }
+        });
 
     }
 
@@ -78,40 +105,48 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        new AlertDialog.Builder(this).setMessage("Connessione bluetooth effettuata!").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(currentMode == Status.Auto){
+                    setAutoMode();
+                } else if (currentMode == Status.Alarm){
+                    setAlarmMode();
+                } else {
+                    setManualMode();
+                }
+            }
+        }).show();
         return false;
     }
 
 
-    /*private void prova (String item){
-        if (item == R.id.bluetooth) {
-            if(currentMode == Status.Manual){
-                new AlertDialog.Builder(this).setMessage("Vuoi passare alla modalità automatica?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        scrollView.setVisibility(View.INVISIBLE);
-                        currentMode = Status.Auto;
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                }).show();
-            } else if(currentMode == Status.Auto){
-                new AlertDialog.Builder(this).setMessage("Vuoi passare alla modalità manuale?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        scrollView.setVisibility(View.VISIBLE);
-                        currentMode = Status.Manual;
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                }).show();
-            }
-        }
+    private void setManualMode(){
+        constraintLayout.setVisibility(View.VISIBLE);
+        scrollView.setVisibility(View.VISIBLE);
+        currentMode = Status.Manual;
+        auto.setVisibility(View.VISIBLE);
+        manual.setVisibility(View.INVISIBLE);
+        alarm.setVisibility(View.INVISIBLE);
+        status.setText("CURRENT: MANUAL MODE");
+    }
 
-    }*/
+    private void setAutoMode(){
+        constraintLayout.setVisibility(View.VISIBLE);
+        scrollView.setVisibility(View.INVISIBLE);
+        currentMode = Status.Auto;
+        manual.setVisibility(View.VISIBLE);
+        auto.setVisibility(View.INVISIBLE);
+        alarm.setVisibility(View.INVISIBLE);
+        status.setText("CURRENT: AUTO MODE");
+    }
+
+    public void setAlarmMode() {
+        constraintLayout.setVisibility(View.VISIBLE);
+        scrollView.setVisibility(View.INVISIBLE);
+        auto.setVisibility(View.INVISIBLE);
+        alarm.setVisibility(View.VISIBLE);
+        status.setText("ALARM MODE!!");
+        manual.setVisibility(View.INVISIBLE);
+    }
 }
