@@ -4,7 +4,7 @@ import inspect
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
-from garden_status.status import GardenStatus, IrrigatorStatus, LedStatus
+from garden_status.status import *
 
 class Manifest:
 
@@ -22,8 +22,8 @@ class Manifest:
         self.irrigatorStatus = IrrigatorStatus.CLOSED
         self.controllerLed1 = LedStatus.OFF
         self.controllerLed2 = LedStatus.OFF
-        self.controllerLed3 = LedStatus.OFF
-        self.controllerLed4 = LedStatus.OFF
+        self.controllerLed3 = LedWithIntensityStatus.OFF
+        self.controllerLed4 = LedWithIntensityStatus.OFF
 
     def getGardenStatus(self):
         return self.gardenStatus
@@ -44,18 +44,18 @@ class Manifest:
     def setSensorboardLed(self, status):
         self.sensorboardLed = status
 
-    def setControllerLedOn(self):
+    def setControllerLedOn(self, value):
         self.controllerLed1 = LedStatus.ON
         self.controllerLed2 = LedStatus.ON
-        self.controllerLed3 = LedStatus.ON
-        self.controllerLed4 = LedStatus.ON
+        self.controllerLed3 = LedWithIntensityStatus.fromValue(value)
+        self.controllerLed4 = LedWithIntensityStatus.fromValue(value)
         #bisogna impostare i valori di led 3 e 4
 
     def setControllerLedOff(self):
         self.controllerLed1 = LedStatus.OFF
         self.controllerLed2 = LedStatus.OFF
-        self.controllerLed3 = LedStatus.OFF
-        self.controllerLed4 = LedStatus.OFF
+        self.controllerLed3 = LedWithIntensityStatus.OFF
+        self.controllerLed4 = LedWithIntensityStatus.OFF
 
     def getTemperature(self):
         return self.temperature

@@ -49,3 +49,29 @@ class LedStatus(Enum):
 
     def toString(self):
         return self.value
+
+class LedWithIntensityStatus(Enum):
+    INT1 = "1"
+    INT2 = "2"
+    INT3 = "3"
+    INT4 = "4"
+    INT5 = "5"
+    OFF = "OFF"
+
+    @staticmethod
+    def fromValue(status):
+        if status == 1:
+            return LedWithIntensityStatus.INT1
+        elif status == 2:
+            return LedWithIntensityStatus.INT2
+        elif status == 3:
+            return LedWithIntensityStatus.INT3
+        elif status == 4:
+            return LedWithIntensityStatus.INT4
+        elif status == 5:
+            return LedWithIntensityStatus.INT5
+        elif status == "OFF":
+            return LedWithIntensityStatus.OFF
+
+    def toString(self):
+        return self.value

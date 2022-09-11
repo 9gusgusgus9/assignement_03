@@ -17,7 +17,7 @@ Thermometer* tmp = new Thermometer(TMP_PIN);
 Device* device = new Device(led, tmp, photoresistor);
 const char* ssid = "iPhone di Gustavo";
 const char* password = "qwertyui";
-String serverPath = "http://172.20.10.4:5000";
+String serverPath = "http://172.20.10.5:5000";
 unsigned long timeOfLastRequest = 0;
 
 void connectToWifi(const char* ssid, const char* password){
@@ -38,10 +38,10 @@ int sendData(float temperature, float luminosity){
    	http.begin(serverPath + "/data");   
    	http.addHeader("Content-Type", "application/json");
    	int retCode = http.POST("{\"temperature\":\"" + String(temperature) + "\", \"luminosity\":\"" + String(luminosity) + "\"}");
-	//Serial.println("Temperature" + String(temperature) + "Luminosity" + String(luminosity));
+	Serial.println("Temperature" + String(temperature) + "Luminosity" + String(luminosity));
 	if(retCode > 0) {
 		String payload = http.getString();
-		//Serial.println(payload);
+		Serial.println(payload);
 		if(payload == "OFF") {
 			device->getLed()->setState(false);
 		} else {
@@ -65,7 +65,7 @@ void loop() {
 	if(millis() - timeOfLastRequest > 1000){
 		device->compute();
 		if(WiFi.status() == WL_CONNECTED){
-			sendData(tmp->getTemperature(), photoresistor->getLight());
+			sendData(device->getThermometer()->getTemperature(), device->getPhotoresistor()->getLight());
 			timeOfLastRequest = millis();
 		} else {
 			Serial.println("WiFi Disconnected... Reconnecting");
