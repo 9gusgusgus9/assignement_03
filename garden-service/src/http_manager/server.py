@@ -27,7 +27,7 @@ def getGardenStatus():
             "led3": manifest.getControllerLed3().toString(),
             "led4": manifest.getControllerLed4().toString(),
             "irrigator_status": manifest.getIrrigatorStatus().toString(),
-            "irrigator_speed": manifest.getIrrigatorSpeed()
+            "irrigator_speed": manifest.getIrrigatorIntensity().toInt()
         }),
         mimetype='application/json',
         status=200
@@ -62,7 +62,7 @@ def compute():
             manifest.setIrrigatorStatus(IrrigatorStatus.OPEN)
       else:
          manifest.setIrrigatorStatus(IrrigatorStatus.CLOSED)
-
+      manifest.setIrrigatorIntensity(manifest.getTemperature())
       #Temperature controls
       if manifest.getTemperature() == 5 and manifest.getIrrigatorStatus() == IrrigatorStatus.CLOSED:
          print("Temperature is too high")

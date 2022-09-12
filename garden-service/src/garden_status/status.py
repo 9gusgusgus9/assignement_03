@@ -35,6 +35,28 @@ class IrrigatorStatus(Enum):
     def toString(self):
         return self.value
 
+class IrrigationIntensityStatus(Enum):
+    INT1 = 1
+    INT2 = 2
+    INT3 = 3
+    INT4 = 4
+    INT5 = 5
+
+    @staticmethod
+    def fromInt(intensity):
+        if intensity == 1:
+            return IrrigationIntensityStatus.INT1
+        elif intensity == 2:
+            return IrrigationIntensityStatus.INT2
+        elif intensity == 3:
+            return IrrigationIntensityStatus.INT3
+        elif intensity == 4:
+            return IrrigationIntensityStatus.INT4
+        elif intensity == 5:
+            return IrrigationIntensityStatus.INT5
+    
+    def toInt(self):
+        return self.value
 
 class LedStatus(Enum):
     ON = "ON"
@@ -74,6 +96,6 @@ class LedWithIntensityStatus(Enum):
             return LedWithIntensityStatus.OFF
         else:
             return LedWithIntensityStatus.OFF
-            
+
     def toString(self):
         return self.value
