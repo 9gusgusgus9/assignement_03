@@ -38,9 +38,6 @@ def getGardenStatus():
 def serve_dashboard():
     return send_from_directory('../../../garden-dashboard', 'index.html')
 
-
-
-
 @app.route('/data', methods=['POST'])
 def getData():
    temperature = request.json["temperature"]
@@ -58,9 +55,10 @@ def compute():
    if manifest.getGardenStatus() == GardenStatus.AUTO:
       manifest.setSensorboardLed(LedStatus.ON)
       #Luminosity controls
-      if manifest.getLuminosity() < 5:
-         manifest.setControllerLedOn(5 - manifest.getLuminosity())
-         if manifest.getLuminosity() < 2 :
+      luminosity = manifest.getLuminosity()
+      if luminosity < 5:
+         manifest.setControllerLedOn(4 - luminosity)
+         if luminosity < 2 :
             if manifest.getIrrigatorStatus() == IrrigatorStatus.CLOSED:
                manifest.setIrrigatorStatus(IrrigatorStatus.OPEN)
          else:

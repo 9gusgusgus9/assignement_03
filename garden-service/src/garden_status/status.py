@@ -55,7 +55,7 @@ class LedWithIntensityStatus(Enum):
     INT2 = "2"
     INT3 = "3"
     INT4 = "4"
-    INT5 = "5"
+    INT0 = "0"
     OFF = "OFF"
 
     @staticmethod
@@ -68,8 +68,8 @@ class LedWithIntensityStatus(Enum):
             return LedWithIntensityStatus.INT3
         elif status == 4:
             return LedWithIntensityStatus.INT4
-        elif status == 5:
-            return LedWithIntensityStatus.INT5
+        elif status == 0:
+            return LedWithIntensityStatus.INT0
         elif status == "OFF":
             return LedWithIntensityStatus.OFF
 

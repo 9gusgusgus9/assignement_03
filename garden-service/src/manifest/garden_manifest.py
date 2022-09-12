@@ -47,8 +47,8 @@ class Manifest:
     def setControllerLedOn(self, value):
         self.controllerLed1 = LedStatus.ON
         self.controllerLed2 = LedStatus.ON
-        self.controllerLed3 = LedWithIntensityStatus.fromValue(value)
-        self.controllerLed4 = LedWithIntensityStatus.fromValue(value)
+        self.controllerLed3 = LedWithIntensityStatus.fromValue(int(value))
+        self.controllerLed4 = LedWithIntensityStatus.fromValue(int(value))
         #bisogna impostare i valori di led 3 e 4
 
     def setControllerLedOff(self):
