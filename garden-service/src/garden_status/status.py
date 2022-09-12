@@ -72,6 +72,8 @@ class LedWithIntensityStatus(Enum):
             return LedWithIntensityStatus.INT0
         elif status == "OFF":
             return LedWithIntensityStatus.OFF
-
+        else:
+            return LedWithIntensityStatus.OFF
+            
     def toString(self):
         return self.value
