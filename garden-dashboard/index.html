@@ -125,28 +125,32 @@
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
     <script>
         
+        setInterval(updateData, 100);
 
         // get request to /dashboard-status
-        const dashboardStatus = new XMLHttpRequest();
-        dashboardStatus.open("GET", "/gardenStatus");
-        dashboardStatus.onload = function () {
-            const data = JSON.parse(dashboardStatus.responseText);
+        function updateData(){
+            const dashboardStatus = new XMLHttpRequest();
+            dashboardStatus.open("GET", "/gardenStatus");
+            dashboardStatus.onload = function () {
+                const data = JSON.parse(dashboardStatus.responseText);
 
-            $("#status").text(data.status);
-            updateStatus(data.status);
+                $("#status").text(data.status);
+                updateStatus(data.status);
 
-            $("#light").text(data.light);
-            $("#temperature").text(data.temperature);
+                $("#light").text(data.light);
+                $("#temperature").text(data.temperature);
 
-            $("#led1").text(data.led1);
-            $("#led2").text(data.led2);
-            $("#led3").text(data.led3);
-            $("#led4").text(data.led4);
+                $("#led1").text(data.led1);
+                $("#led2").text(data.led2);
+                $("#led3").text(data.led3);
+                $("#led4").text(data.led4);
 
-            $("#irrigator_status").text(data.irrigator_status);
-            $("#irrigator_speed").text(data.irrigation_speed);
+                $("#irrigator_status").text(data.irrigator_status);
+                $("#irrigator_speed").text(data.irrigation_speed);
+            }
+            dashboardStatus.send();
         }
-        dashboardStatus.send();
+        
 
         function updateStatus(status) {
             $("body").removeClass();
