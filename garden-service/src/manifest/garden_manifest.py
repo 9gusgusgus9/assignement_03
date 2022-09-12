@@ -20,6 +20,7 @@ class Manifest:
 
         # Controller Status
         self.irrigatorStatus = IrrigatorStatus.CLOSED
+        self.irrigationIntensity = IrrigationIntensityStatus.INT1
         self.controllerLed1 = LedStatus.OFF
         self.controllerLed2 = LedStatus.OFF
         self.controllerLed3 = LedWithIntensityStatus.OFF
@@ -36,8 +37,10 @@ class Manifest:
 
     def setIrrigatorStatus(self, status):
         self.irrigatorStatus = status
-        #Bisogna importare la velocita dell'irrigatore
     
+    def setIrrigatorIntensity(self, intensity):
+        self.irrigationIntensity = IrrigationIntensityStatus.fromInt(int(intensity))
+
     def getSensorboardLed(self):
         return self.sensorboardLed
 
@@ -47,8 +50,8 @@ class Manifest:
     def setControllerLedOn(self, value):
         self.controllerLed1 = LedStatus.ON
         self.controllerLed2 = LedStatus.ON
-        self.controllerLed3 = LedWithIntensityStatus.fromValue(value)
-        self.controllerLed4 = LedWithIntensityStatus.fromValue(value)
+        self.controllerLed3 = LedWithIntensityStatus.fromValue(int(value))
+        self.controllerLed4 = LedWithIntensityStatus.fromValue(int(value))
         #bisogna impostare i valori di led 3 e 4
 
     def setControllerLedOff(self):
@@ -81,7 +84,7 @@ class Manifest:
     def getControllerLed4(self):
         return self.controllerLed4
 
-    def getIrrigatorSpeed(self):
-        return 0
+    def getIrrigatorIntensity(self):
+        return self.irrigationIntensity
         #Bisogna importare la velocita dell'irrigatore
     

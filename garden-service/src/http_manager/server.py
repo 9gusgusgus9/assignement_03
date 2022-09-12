@@ -27,7 +27,7 @@ def getGardenStatus():
             "led3": manifest.getControllerLed3().toString(),
             "led4": manifest.getControllerLed4().toString(),
             "irrigator_status": manifest.getIrrigatorStatus().toString(),
-            "irrigator_speed": manifest.getIrrigatorSpeed()
+            "irrigator_speed": manifest.getIrrigatorIntensity().toInt()
         }),
         mimetype='application/json',
         status=200
@@ -37,9 +37,6 @@ def getGardenStatus():
 @app.route('/')
 def serve_dashboard():
     return send_from_directory('../../../garden-dashboard', 'index.html')
-
-
-
 
 @app.route('/data', methods=['POST'])
 def getData():
@@ -58,16 +55,14 @@ def compute():
    if manifest.getGardenStatus() == GardenStatus.AUTO:
       manifest.setSensorboardLed(LedStatus.ON)
       #Luminosity controls
-      if manifest.getLuminosity() < 5:
-         manifest.setControllerLedOn(5 - manifest.getLuminosity())
-         if manifest.getLuminosity() < 2 :
-            if manifest.getIrrigatorStatus() == IrrigatorStatus.CLOSED:
-               manifest.setIrrigatorStatus(IrrigatorStatus.OPEN)
-         else:
-            manifest.setIrrigatorStatus(IrrigatorStatus.CLOSED)
+      luminosity = manifest.getLuminosity()
+      checkLuminosity(luminosity)
+      if luminosity < 2 :
+         if manifest.getIrrigatorStatus() == IrrigatorStatus.CLOSED:
+            manifest.setIrrigatorStatus(IrrigatorStatus.OPEN)
       else:
-         manifest.setControllerLedOff()
-
+         manifest.setIrrigatorStatus(IrrigatorStatus.CLOSED)
+      manifest.setIrrigatorIntensity(manifest.getTemperature())
       #Temperature controls
       if manifest.getTemperature() == 5 and manifest.getIrrigatorStatus() == IrrigatorStatus.CLOSED:
          print("Temperature is too high")
@@ -76,8 +71,13 @@ def compute():
    if manifest.getGardenStatus() == GardenStatus.ALARM:
       manifest.setSensorboardLed(LedStatus.OFF)
       manifest.setIrrigatorStatus(IrrigatorStatus.CLOSED)
-      manifest.setControllerLedOn(5 - manifest.getLuminosity())
-      
+      checkLuminosity(manifest.getLuminosity())
+
+def checkLuminosity(luminosity):
+   if luminosity < 5:
+      manifest.setControllerLedOn(4 - luminosity)
+   else:
+      manifest.setControllerLedOff()
 
 if __name__ == '__main__':
    app.run('0.0.0.0', port=5000)
