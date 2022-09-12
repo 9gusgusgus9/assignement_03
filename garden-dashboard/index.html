@@ -146,7 +146,8 @@
                 $("#led4").text(data.led4);
 
                 $("#irrigator_status").text(data.irrigator_status);
-                $("#irrigator_speed").text(data.irrigation_speed);
+                console.log(data.irrigator_speed);
+                $("#irrigator_speed").text(data.irrigator_speed);
             }
             dashboardStatus.send();
         }
@@ -205,7 +206,7 @@
             <div class="line irrigator">
                 <h3>Irrigator (OPEN, CLOSED, READY)</h3> <span id="irrigator_status"></span>
             </div><div class="line irrigator">
-                <h3>Irrigator speed (0-4)</h3> <span id="irrigation_speed"></span>
+                <h3>Irrigator speed (1-5)</h3> <span id="irrigator_speed"></span>
             </div>
         </div>
 
