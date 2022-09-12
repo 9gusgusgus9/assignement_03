@@ -15,15 +15,15 @@
         }
 
         .auto {
-            background-color: rgb(192, 255, 192);
+            background-color: rgb(127,255,0);
         }
 
         .manual {
-            background-color: rgb(255, 192, 128);
+            background-color: rgb(100,149,237);
         }
 
         .alarm {
-            background-color: rgb(255, 128, 128);
+            background-color: rgb(240,128,128);
         }
 
         .title {
@@ -57,6 +57,22 @@
             margin-top: 2em;
             padding: 1em;
             border: 2px solid black;
+        }
+
+        .container_line_half {
+            width: 48%;
+            height: 200px;
+            margin-top: 2em;
+            padding: 1em;
+            border: 2px solid black;
+        }
+
+        .container_line_half:nth-child(1) {
+            float: left;
+        }
+
+        .container_line_half:nth-child(2) {
+            float: right;
         }
 
         body > div > div > h2 {
@@ -146,7 +162,6 @@
                 $("#led4").text(data.led4);
 
                 $("#irrigator_status").text(data.irrigator_status);
-                console.log(data.irrigator_speed);
                 $("#irrigator_speed").text(data.irrigator_speed);
             }
             dashboardStatus.send();
@@ -177,7 +192,7 @@
             <h2>Status: <span id="status"></span></h2>
         </div>
 
-        <div class="container_line">
+        <div class="container_line_half">
             <h2>Sensorboard</h2>
             <div class="line sensorboard">
                 <h3>Light (0-7)</h3>
@@ -185,6 +200,15 @@
             </div><div class="line sensorboard">
                 <h3>Temperature (1-5)</h3>
                 <span id="temperature"></span>
+            </div>
+        </div>
+
+        <div class="container_line_half">
+            <h2>Irrigator</h2>
+            <div class="line irrigator">
+                <h3>Irrigator (OPEN, CLOSED, READY)</h3> <span id="irrigator_status"></span>
+            </div><div class="line irrigator">
+                <h3>Irrigator speed (1-5)</h3> <span id="irrigator_speed"></span>
             </div>
         </div>
 
@@ -200,16 +224,6 @@
                 <h3>LED 4 (0-100%)</h3> <span id="led4"></span>
             </div>
         </div>
-
-        <div class="container_line">
-            <h2>Irrigator</h2>
-            <div class="line irrigator">
-                <h3>Irrigator (OPEN, CLOSED, READY)</h3> <span id="irrigator_status"></span>
-            </div><div class="line irrigator">
-                <h3>Irrigator speed (1-5)</h3> <span id="irrigator_speed"></span>
-            </div>
-        </div>
-
     </div>
 </body>
 </html>
