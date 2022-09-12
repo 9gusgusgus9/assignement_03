@@ -1,81 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/constraintLayoutFirst">
 
+    <Button
+        android:id="@+id/button_auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="34dp"
+        android:text="@string/auto_mode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_manual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:text="@string/manual_mode"
+        app:layout_constraintBottom_toBottomOf="@+id/button_auto"
+        app:layout_constraintStart_toEndOf="@+id/button_auto"
+        app:layout_constraintTop_toTopOf="@+id/button_auto" />
+
+
+    <ImageButton
+        android:id="@+id/button_alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="7dp"
+        android:minHeight="48dp"
+        android:src="@drawable/ic_baseline_notification_important_24"
+        app:layout_constraintStart_toEndOf="@+id/text_status"
+        app:layout_constraintTop_toBottomOf="@+id/button_manual"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/text_status"
+        android:layout_width="186dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="36dp"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/button_alarm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_manual" />
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="366dp"
+        android:layout_height="500dp"
+        android:layout_marginTop="10dp"
         app:layout_anchor="@+id/scrollView"
-        app:layout_anchorGravity="center">
+        app:layout_anchorGravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_status"
+        tools:ignore="NotSibling">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayoutFirst"
+            android:id="@+id/constraintLayoutSecond"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:minHeight="700dp"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button_Auto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="9dp"
-                android:text="@string/auto_mode"
-                app:layout_constraintEnd_toStartOf="@+id/button_manual"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/button_manual"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:text="@string/manual_mode"
-                app:layout_constraintBottom_toBottomOf="@+id/button_Auto"
-                app:layout_constraintStart_toEndOf="@+id/button_Auto"
-                app:layout_constraintTop_toTopOf="@+id/button_Auto" />
-
-            <ImageButton
-                android:id="@+id/button_alarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="37dp"
-                android:layout_marginTop="23dp"
-                android:minHeight="48dp"
-                android:src="@drawable/ic_baseline_notification_important_24"
-                app:layout_constraintStart_toEndOf="@+id/text_status"
-                app:layout_constraintTop_toBottomOf="@+id/button_manual"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <TextView
-                android:id="@+id/text_status"
-                android:layout_width="186dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginBottom="28dp"
-                android:text=""
-                android:textAlignment="center"
-                app:layout_constraintBottom_toTopOf="@+id/simpleTextViewLight"
-                app:layout_constraintStart_toStartOf="parent" />
-
             <TextView
                 android:id="@+id/simpleTextViewLight"
-                android:layout_width="140dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="5dp"
+                android:layout_width="128dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="27dp"
                 android:text="@string/light_system"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toTopOf="@+id/text_led1"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <View
                 android:id="@+id/divider"
@@ -103,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="154dp" />
+                app:layout_constraintGuide_begin="16dp" />
 
 
             <TextView
@@ -121,11 +129,11 @@
                 android:id="@+id/text_led1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginBottom="11dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/led_1"
-                app:layout_constraintBottom_toTopOf="@+id/led1_OnOff"
-                app:layout_constraintStart_toStartOf="@+id/led1_OnOff" />
+                app:layout_constraintStart_toStartOf="@+id/led1_OnOff"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
 
             <TextView
                 android:id="@+id/text_led2"
@@ -141,20 +149,20 @@
                 android:id="@+id/led1_OnOff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="13dp"
                 android:backgroundTint="@color/blue"
                 android:text="@string/on_off"
-                app:layout_constraintBottom_toTopOf="@+id/text_led3"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_led1" />
 
             <Button
                 android:id="@+id/led2_OnOff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="45dp"
                 android:backgroundTint="@color/blue"
                 android:text="@string/on_off"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -166,7 +174,8 @@
                 android:id="@+id/text_led3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/led_3"
                 app:layout_constraintBottom_toTopOf="@+id/led3_info"
                 app:layout_constraintStart_toStartOf="@+id/led3_info" />
@@ -175,29 +184,29 @@
                 android:id="@+id/text_led4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/led_4"
                 app:layout_constraintBottom_toTopOf="@+id/led4_info"
                 app:layout_constraintEnd_toEndOf="@+id/led4_info" />
 
             <ImageButton
                 android:id="@+id/led3_meno"
-                android:layout_width="0dp"
+                android:layout_width="40dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="11dp"
+                android:layout_marginStart="20dp"
                 android:backgroundTint="@color/blue"
                 android:src="@drawable/ic_baseline_remove_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/led3_info"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck" />
+                app:layout_constraintVertical_bias="0.311"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <ImageButton
                 android:id="@+id/led3_piu"
-                android:layout_width="0dp"
+                android:layout_width="40dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginEnd="30dp"
@@ -208,69 +217,75 @@
                 app:layout_constraintEnd_toStartOf="@+id/led4_meno"
                 app:layout_constraintStart_toEndOf="@+id/led3_info"
                 app:layout_constraintTop_toTopOf="@+id/led4_meno"
-                tools:ignore="SpeakableTextPresentCheck" />
+                app:layout_constraintVertical_bias="1.0"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/led3_info"
-                android:layout_width="0dp"
+                android:layout_width="35dp"
                 android:layout_height="48dp"
-                android:layout_marginEnd="9dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:text=""
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/led3_piu"
                 app:layout_constraintStart_toEndOf="@+id/led3_meno"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.311" />
+
 
             <TextView
                 android:id="@+id/led4_info"
-                android:layout_width="0dp"
+                android:layout_width="35dp"
                 android:layout_height="48dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:text=""
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/led4_piu"
                 app:layout_constraintStart_toEndOf="@+id/led4_meno"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.311" />
 
             <ImageButton
                 android:id="@+id/led4_meno"
-                android:layout_width="0dp"
+                android:layout_width="40dp"
                 android:layout_height="48dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginTop="228dp"
                 android:backgroundTint="@color/blue"
                 android:src="@drawable/ic_baseline_remove_24"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/led4_info"
                 app:layout_constraintStart_toEndOf="@+id/led3_piu"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck" />
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <ImageButton
                 android:id="@+id/led4_piu"
-                android:layout_width="0dp"
+                android:layout_width="40dp"
                 android:layout_height="48dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="45dp"
                 android:backgroundTint="@color/blue"
                 android:src="@drawable/ic_baseline_add_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/led4_info"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck" />
-
+                app:layout_constraintVertical_bias="0.311"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <Button
                 android:id="@+id/irrigationButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="85dp"
+                android:layout_marginStart="96dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="180dp"
                 android:backgroundTint="@color/blue"
                 android:text="Open/Close"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider2" />
+                app:layout_constraintTop_toBottomOf="@+id/divider2"
+                app:layout_constraintVertical_bias="0.0" />
 
             <ImageButton
                 android:id="@+id/irrigationPiu"
@@ -320,4 +335,5 @@
     </ScrollView>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
