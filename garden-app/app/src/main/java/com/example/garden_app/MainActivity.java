@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
             if(BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)){
                 bluetoothStatus.setText("Connection OK");
+                manual.setVisibility(View.VISIBLE);
             } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)){
                 bluetoothStatus.setText("Connection NOT OK");
                 auto.setVisibility(View.INVISIBLE);
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setAutoMode();
+                btControlManager.transferData(Code.MODECODE);
             }
         });
 
@@ -136,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setManualMode();
+                btControlManager.transferData(Code.MODECODE);
             }
         });
 
@@ -144,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 status.setText("ALARM DEACTIVATE!");
                 auto.setVisibility(View.VISIBLE);
+                btControlManager.transferData(Code.ALARMCODE);
             }
         });
 
@@ -198,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                String bdrInfo = (String) (listView.getAdapter()).getItem(position);
+                String bdrInfo = (String) ((ArrayAdapter) listView.getAdapter()).getItem(position);
                 String[] info = bdrInfo.split("\n");
                 System.out.println(info[1]);
                 log("Bluetooth", "Try connection");
@@ -206,7 +210,51 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        led1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btControlManager.transferData(Code.LED1);
+            }
+        });
 
+        led2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btControlManager.transferData(Code.LED2);
+            }
+        });
+
+        irrigation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btControlManager.transferData(Code.IRRIGATION);
+            }
+        });
+
+        irrigationPiu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(irrigationVal < 5){
+                    irrigationVal++;
+                    infoIrragation.setText(String.valueOf(irrigationVal));
+                    btControlManager.transferData(Code.IRRIGATIONPIU);
+                }
+
+            }
+        });
+
+        irrigationMeno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(irrigationVal >= 1){
+                    irrigationVal--;
+                    infoIrragation.setText(String.valueOf(irrigationVal));
+                    btControlManager.transferData(Code.IRRIGATIONMENO);
+                }
+            }
+        });
+
+        this.registerReceiver(receiver, intentFilter);
     }
 
     @Override
@@ -216,37 +264,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        btControlManager.disconnectBluetoothConnection();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
-
-        btControlManager.setUpBluetooth();
-        //this.bluetoothStatus.setVisibility(View.VISIBLE);
-        //this.bluetoothStatus.setText("Connection NOT OK");
-
-        //this.devices = btControlManager.getDevicesAlreadyPaired();
-        //this.listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,devices));
-        //log("BLUETOOTH_STATUS", "Show devices");
-
-
-
-
-        //DA CAMBIARE!!! BISOGNA METTERE LA VERA E PROPRIA CONNESSIONE BLUETOOTH
-
-
-
-        /*new AlertDialog.Builder(this).setMessage("Connessione bluetooth effettuata!").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if(currentMode == Status.Auto){
-                    setAutoMode();
-                } else if (currentMode == Status.Alarm){
-                    setAlarmMode();
-                } else {
-                    setManualMode();
-                }
-            }
-        }).show();
-        */
+        if(item.getItemId() == R.id.bluetooth){
+            btControlManager.setUpBluetooth();
+            constraintLayout.setVisibility(View.VISIBLE);
+            scrollView.setVisibility(View.INVISIBLE);
+            auto.setVisibility(View.INVISIBLE);
+            manual.setVisibility(View.INVISIBLE);
+            alarm.setVisibility(View.INVISIBLE);
+            status.setVisibility(View.INVISIBLE);
+            this.bluetoothStatus.setVisibility(View.VISIBLE);
+            this.bluetoothStatus.setText("Connection NOT OK");
+            this.devices = btControlManager.getDevicesAlreadyPaired();
+            this.listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,devices));
+            log("BLUETOOTH_STATUS", "Show devices");
+        }
 
         return false;
     }
@@ -283,6 +322,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateAlarmStatus(){
         currentMode = Status.Alarm;
+        setAlarmMode();
     }
 
     private void log(String TAG, String mess){
