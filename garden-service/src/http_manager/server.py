@@ -74,7 +74,7 @@ def compute():
       manifest.setIrrigatorStatus(IrrigatorStatus.CLOSED)
       checkLuminosity(manifest.getLuminosity())
    
-   serial.comunicate()
+   serial.comunicate(manifest)
 
 def checkLuminosity(luminosity):
    if luminosity < 5:
