@@ -7,33 +7,53 @@
     tools:context=".MainActivity"
     android:id="@+id/constraintLayoutFirst">
 
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="411dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bluetooth_status" />
+
+    <TextView
+        android:id="@+id/bluetooth_status"
+        android:layout_width="138dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="28dp"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/button_auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="164dp"
         android:text="@string/auto_mode"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_manual"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
         android:text="@string/manual_mode"
         app:layout_constraintBottom_toBottomOf="@+id/button_auto"
         app:layout_constraintStart_toEndOf="@+id/button_auto"
-        app:layout_constraintTop_toTopOf="@+id/button_auto" />
-
+        app:layout_constraintTop_toTopOf="@+id/button_auto"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/button_alarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="28dp"
         android:minHeight="48dp"
         android:src="@drawable/ic_baseline_notification_important_24"
         app:layout_constraintStart_toEndOf="@+id/text_status"
@@ -42,10 +62,10 @@
 
     <TextView
         android:id="@+id/text_status"
-        android:layout_width="186dp"
-        android:layout_height="35dp"
+        android:layout_width="188dp"
+        android:layout_height="48dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="36dp"
         android:text=""
         android:textAlignment="center"
@@ -55,9 +75,9 @@
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="366dp"
-        android:layout_height="500dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="347dp"
+        android:layout_height="575dp"
+        android:layout_marginTop="12dp"
         app:layout_anchor="@+id/scrollView"
         app:layout_anchorGravity="center"
         app:layout_constraintStart_toStartOf="parent"
