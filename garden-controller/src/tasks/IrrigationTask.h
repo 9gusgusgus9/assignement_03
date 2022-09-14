@@ -16,6 +16,9 @@ class IrrigationTask : public Task {
     private:
         Manifest *manifest;
         ServoMotorImpl *servo;
+        IrrigatorStatus lastStatus;
+        int lastTime;
+
 };
 
 #endif

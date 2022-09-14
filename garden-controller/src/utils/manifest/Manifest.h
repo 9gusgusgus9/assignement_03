@@ -62,8 +62,8 @@ class Manifest{
         int getGardenStatus();
         int getIrrigatorIntensity();
         int getLedIntensity(int led);
-        int getX();
-        int getY();
+        int getActionPeriod();
+        int getPausePeriod();
 };
 
 #endif

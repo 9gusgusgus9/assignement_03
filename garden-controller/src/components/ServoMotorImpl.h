@@ -13,7 +13,7 @@ public:
   void setPosition(int angle);
   void off();
   int getPosition();
-  void goToZero();
+  void moveOf(int pass);
     
 private:
   int pin; 
