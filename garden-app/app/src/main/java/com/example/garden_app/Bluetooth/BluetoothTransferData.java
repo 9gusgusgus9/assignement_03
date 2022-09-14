@@ -1,12 +1,13 @@
 package com.example.garden_app.Bluetooth;
 
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothSocket;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class BluetoothTransferData extends Thread{
+public class BluetoothTransferData{
     private BluetoothSocket socket;
     private OutputStream outputStream;
     private InputStream inputStream;
@@ -31,24 +32,9 @@ public class BluetoothTransferData extends Thread{
         inputStream = tmpIn;
     }
 
-    @Override
-    public void run() {
-        buffer = new byte[1024];
-        while (true){
-            try {
-                val = inputStream.read(buffer);
-                System.out.println(val);
-                btm.getDataFromBluetooth();
-            } catch (IOException e) {
-                e.printStackTrace();
-                break;
-            }
-        }
-    }
-
-    public void write(int data){
+    public void write(String data){
         try {
-            outputStream.write(data);
+            outputStream.write(data.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }

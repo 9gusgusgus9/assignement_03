@@ -52,6 +52,10 @@ def getData():
 def get_dashboard_files(path):
     return send_from_directory('../../../garden-dashboard', path)
 
+@app.route("/status")
+def getStatus():
+   return manifest.getGardenStatus().toString()
+
 def compute():
    if manifest.getGardenStatus() == GardenStatus.AUTO:
       manifest.setSensorboardLed(LedStatus.ON)

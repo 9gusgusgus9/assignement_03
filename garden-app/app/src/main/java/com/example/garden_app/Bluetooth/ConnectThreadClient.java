@@ -1,13 +1,18 @@
 package com.example.garden_app.Bluetooth;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.pm.PackageManager;
+
+import androidx.core.app.ActivityCompat;
 
 import java.io.IOException;
 import java.util.UUID;
 
-public class ConnectThreadClient extends Thread{
+public class ConnectThreadClient extends Thread {
     private final BluetoothSocket socket;
     private final BluetoothDevice device;
     private BluetoothAdapter adapter;
@@ -15,6 +20,7 @@ public class ConnectThreadClient extends Thread{
     private final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private BluetoothControlManager btcm;
 
+    @SuppressLint("MissingPermission")
     public ConnectThreadClient(BluetoothDevice btd, BluetoothAdapter adpt) {
         BluetoothSocket tmp = null;
         device = btd;
@@ -27,6 +33,7 @@ public class ConnectThreadClient extends Thread{
         adapter = adpt;
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void run() {
         adapter.cancelDiscovery();
@@ -38,7 +45,6 @@ public class ConnectThreadClient extends Thread{
                 socket.close();
                 System.out.println("CONNECTION UNREACHEABLE");
             } catch (IOException ioException) {
-
                 ioException.printStackTrace();
             }
             return;
