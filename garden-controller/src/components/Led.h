@@ -4,13 +4,11 @@
 #include "Arduino.h"
 #include "../utils/manifest/Manifest.h"
 
-class Led
-{
+class Led{
 private:
     int pin;
     int currentIntensity;
-    int state; // 0 off, 1 on
-
+    LedStatus status;
 
 public:
     Led(int pin);

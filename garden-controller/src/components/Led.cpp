@@ -9,7 +9,7 @@ Led::Led(int pin){
 
 void Led::init(){
     pinMode(pin, OUTPUT);
-    this->state = 0;
+    this->status = OFF;
 }
 
 void Led::setIntensity(int intensity){

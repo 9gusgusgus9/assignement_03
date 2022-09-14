@@ -52,13 +52,18 @@ class Manifest{
         void setLedStatus(int led, LedStatus status);
         void setIrrigatorStatus(IrrigatorStatus status);
         void setGardenStatus(GardenStatus status);
-        void setIntensity(int intensity);
-        void setX(int x);
-        void setY(int y);
-        int getLedStatus(int led);
-        int getIrrigatorStatus();
+        void setIrrigatorIntensity(int intensity);
+        void setLedIntensity(int led, int intensity);
+        void setPausePeriod(int x);
+        void setActionPeriod(int y);
+
+        LedStatus getLedStatus(int led);
+        IrrigationStatus getIrrigatorStatus();
         int getGardenStatus();
-        int getIntensity();
+        int getIrrigatorIntensity();
+        int getLedIntensity(int led);
         int getX();
         int getY();
-}
+};
+
+#endif
