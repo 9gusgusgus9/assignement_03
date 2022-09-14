@@ -36,24 +36,5 @@ void setup() {
 
 void loop() {
   scheduler->schedule();
-
-  switch (manifest -> getGardenStatus())
-  {
-  case AUTO:
-
-    break;
-  case MANUAL:
-    
-    break;
-  
-  case ALARM:
-    break;
-  default:
-    break;
-  }
-  if(manifest->getGardenStatus() == AUTO){
-
-  }
-
   // put your main code here, to run repeatedly:
 }
