@@ -1,22 +1,25 @@
-#include <SoftwareSerial.h>
+#ifndef __MSGSERVICEBT__
+#define __MSGSERVICEBT__
 
-#ifndef __BLUETOOTHSERVICE__
-#define __BLUETOOTHSERVICE__
+#include "Arduino.h"
+#include "SoftwareSerial.h"
+#include "MsgService.h"
 
-extern int bluetoothVal;
+class BluetoothService {
 
-class BluetoothService{
-  private:
-    int rx;
-    int tx;
-    SoftwareSerial* btSerial;
+public:
+  BluetoothService() {}
+  BluetoothService(int rxPin, int txPin);
+  void init();
+  bool isMsgAvailable();
+  Msg* receiveMsg();
+  bool sendMsg(Msg msg);
 
-  public:
-    BluetoothService(int rx, int tx);
-    void init();
-    int isSerialAvaiable();
-    int readData();
-    void sendData(int data);
+private:
+  String content;
+  Msg* availableMsg;
+  SoftwareSerial* channel;
+
 };
 
 #endif

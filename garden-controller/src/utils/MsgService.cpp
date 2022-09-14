@@ -66,5 +66,3 @@ Msg* MsgServiceClass::receiveMsg(Pattern& pattern) {
   }
 
 }
-
-

@@ -1,27 +1,43 @@
-#include "BluetoothService.h"
 #include "Arduino.h"
+#include "BluetoothService.h"
 
-int bluetoothVal = -1;
-
-BluetoothService::BluetoothService(int rx, int tx){
-  this->rx = rx;
-  this->tx = tx;
+BluetoothService::BluetoothService(int rxPin, int txPin) {
+  channel = new SoftwareSerial(rxPin, txPin);
 }
 
-void BluetoothService::init(){
-  btSerial = new SoftwareSerial(rx,tx);
-  btSerial->begin(100);
+void BluetoothService::init() {
+  content.reserve(256);
+  channel->begin(9600);
+  availableMsg = NULL;
 }
 
-int BluetoothService::readData(){
-  int val = btSerial->read();
-  return val;
+bool BluetoothService::sendMsg(Msg msg) {
+  channel->println(msg.getContent());
 }
 
-int BluetoothService::isSerialAvaiable(){
-  return btSerial->available();
+bool BluetoothService::isMsgAvailable() {
+  while (channel->available()) {
+    char ch = (char)channel->read();
+    if (ch == '\r') continue;
+    if (ch == '\n') {
+      availableMsg = new Msg(content);
+      content = "";
+      return true;
+    }
+    else {
+      content += ch;
+    }
+  }
+  return false;
 }
 
-void BluetoothService::sendData(int data){
-  btSerial->write(data);
+Msg* BluetoothService::receiveMsg() {
+  if (availableMsg != NULL) {
+    Msg* msg = availableMsg;
+    availableMsg = NULL;
+    return msg;
+  }
+  else {
+    return NULL;
+  }
 }
