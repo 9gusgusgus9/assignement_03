@@ -5,7 +5,7 @@
 
 class SerialService{
 public:
-    SerialService();
+    SerialService(Manifest* manifest);
     bool isMsgAvailable();
     String readDataFromSerial();
     String getCommandFromSerial();

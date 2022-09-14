@@ -37,7 +37,7 @@ void setup() {
 void loop() {
   scheduler->schedule();
 
-  switch (manifest -> getGardenStatus)
+  switch (manifest -> getGardenStatus())
   {
   case AUTO:
 

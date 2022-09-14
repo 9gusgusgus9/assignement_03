@@ -59,11 +59,12 @@ class Manifest{
 
         LedStatus getLedStatus(int led);
         IrrigatorStatus getIrrigatorStatus();
-        int getGardenStatus();
+        GardenStatus getGardenStatus();
         int getIrrigatorIntensity();
         int getLedIntensity(int led);
         int getActionPeriod();
         int getPausePeriod();
+        String getMessageStatus();
 };
 
 #endif
