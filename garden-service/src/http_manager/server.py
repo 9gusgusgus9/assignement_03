@@ -9,12 +9,12 @@ parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
 from manifest.garden_manifest import Manifest
 from garden_status.status import *
-from serial_comunicator.serial_comunicator import SerialComunicator
+#from serial_comunicator.serial_comunicator import SerialComunicator
 
 app = Flask(__name__)
 db = redis.Redis("redis")
 manifest = Manifest()
-serial = SerialComunicator("COM8", 9600)
+#serial = SerialComunicator("COM8", 9600)
 
 @app.route('/gardenStatus', methods=['GET'])
 def getGardenStatus():
@@ -74,7 +74,7 @@ def compute():
       manifest.setIrrigatorStatus(IrrigatorStatus.CLOSED)
       checkLuminosity(manifest.getLuminosity())
    
-   serial.comunicate(manifest)
+   #serial.comunicate(manifest)
 
 def checkLuminosity(luminosity):
    if luminosity < 5:
