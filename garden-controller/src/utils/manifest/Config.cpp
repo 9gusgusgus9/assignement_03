@@ -1,4 +1,4 @@
-#include "Manifest.h"
+#include "Config.h"
 
 int status = 0;
 

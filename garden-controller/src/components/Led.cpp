@@ -1,5 +1,6 @@
 #include "Led.h"
 #include "Arduino.h"
+#include "../utils/manifest/Manifest.h"
 
 Led::Led(int pin){
     this->pin = pin;
@@ -21,12 +22,11 @@ int Led::getIntensity(){
     return this->currentIntensity;
 }
 
-void Led::turn(){
-    if(this->state == 1){
-        digitalWrite(pin, LOW);
-        state = 0;
-    } else {
+void Led::set(LedStatus status){
+    if(status == ON){
         digitalWrite(pin, HIGH);
-        state = 1;
+        
+    } else if(status == OFF){
+        digitalWrite(pin, LOW);
     }
 }

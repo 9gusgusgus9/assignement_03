@@ -6,16 +6,19 @@
 #include "tasks/Task.h"
 #include "tasks/IrrigationTask.h"
 #include "tasks/IlluminationTask.h"
+#include "utils/manifest/Manifest.h"
 
 Scheduler *scheduler;
 Task *irrigationTask;
 Task *illuminationTask;
+Manifest * manifest;
 
 void setup() {
     Serial.begin(9600);
+    manifest = new Manifest();
     scheduler = new Scheduler();
-    irrigationTask = new IrrigationTask(PIN_SERVO);
-    illuminationTask = new IlluminationTask(PIN_LED1, PIN_LED2, PIN_LED3, PIN_LED4);
+    irrigationTask = new IrrigationTask(manifest);
+    illuminationTask = new IlluminationTask(manifest);
 
     irrigationTask->init(100);
     illuminationTask->init(100);

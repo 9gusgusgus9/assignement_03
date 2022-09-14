@@ -1,6 +1,9 @@
 #ifndef __LED__
 #define __LED__
 
+#include "Arduino.h"
+#include "../utils/manifest/Manifest.h"
+
 class Led
 {
 private:
@@ -14,7 +17,7 @@ public:
     void init();
     void setIntensity(int intensity);
     int getIntensity();
-    void turn();
+    void set(LedStatus status);
 };
 
 #endif

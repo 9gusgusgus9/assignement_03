@@ -3,16 +3,19 @@
 
 #include "Task.h"
 #include "../components/ServoMotorImpl.h"
+#include "../utils/manifest/Manifest.h"
+
 class IrrigationTask : public Task {
 
     public:
-        IrrigationTask(int servo);
+        IrrigationTask(Manifest *manifest);
 
         void tick();
-        void init();
+        void init(int period);
 
     private:
-        ServoMotorImpl* servo;
+        Manifest *manifest;
+        ServoMotorImpl *servo;
 };
 
 #endif
