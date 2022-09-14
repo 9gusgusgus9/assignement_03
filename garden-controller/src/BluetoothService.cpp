@@ -10,7 +10,7 @@ BluetoothService::BluetoothService(int rx, int tx){
 
 void BluetoothService::init(){
   btSerial = new SoftwareSerial(rx,tx);
-  btSerial->begin();
+  btSerial->begin(100);
 }
 
 int BluetoothService::readData(){
@@ -19,7 +19,7 @@ int BluetoothService::readData(){
 }
 
 int BluetoothService::isSerialAvaiable(){
-  return btSerial->avaiable();
+  return btSerial->available();
 }
 
 void BluetoothService::sendData(int data){
