@@ -1,14 +1,12 @@
 package com.example.garden_app;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -154,7 +152,6 @@ public class MainActivity extends AppCompatActivity {
         led3Piu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                log("ButtonPressed", "LED3_PIU");
                 if(led3Val < 5){
                     led3Val++;
                     infoLed3.setText(String.valueOf(led3Val));
@@ -166,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
         led3Meno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                log("ButtonPressed", "LED3_MENO");
                 if(led3Val >= 1){
                     led3Val--;
                     infoLed3.setText(String.valueOf(led3Val));
@@ -178,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
         led4Piu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                log("ButtonPressed", "LED4_PIU");
                 if(led4Val < 5){
                     led4Val++;
                     infoLed4.setText(String.valueOf(led4Val));
@@ -190,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
         led4Meno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                log("ButtonPressed", "LED3_MENO");
                 if(led4Val >= 1){
                     led4Val--;
                     infoLed4.setText(String.valueOf(led4Val));
@@ -205,7 +199,6 @@ public class MainActivity extends AppCompatActivity {
                 String bdrInfo = (String) ((ArrayAdapter) listView.getAdapter()).getItem(position);
                 String[] info = bdrInfo.split("\n");
                 System.out.println(info[1]);
-                log("Bluetooth", "Try connection");
                 btControlManager.connectToDevice(info[1]);
             }
         });
@@ -284,7 +277,6 @@ public class MainActivity extends AppCompatActivity {
             this.bluetoothStatus.setText("Connection NOT OK");
             this.devices = btControlManager.getDevicesAlreadyPaired();
             this.listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,devices));
-            log("BLUETOOTH_STATUS", "Show devices");
         }
 
         return false;
@@ -323,10 +315,6 @@ public class MainActivity extends AppCompatActivity {
     public void updateAlarmStatus(){
         currentMode = Status.Alarm;
         setAlarmMode();
-    }
-
-    private void log(String TAG, String mess){
-        System.out.println(TAG +  ":" + mess);
     }
 
 }
