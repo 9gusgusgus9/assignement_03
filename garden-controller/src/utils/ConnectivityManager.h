@@ -2,18 +2,18 @@
 #define __CONNECTIVITYMANAGER__
 
 #include "BluetoothService.h"
-#include "MsgService.h"
+#include "SerialService.h"
 
 class ConnectivityManager{
   private:
     BluetoothService* btService;
-    MsgService* msgService;
+    SerialService* serialService;
 
   public:
     ConnectivityManager();
     BluetoothService* getBluetoothService();
-    MsgService* getMsgService();
-    
+    SerialService* getSerialService();
+
 };
 
 
