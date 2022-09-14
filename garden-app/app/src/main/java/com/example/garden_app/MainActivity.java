@@ -21,9 +21,19 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.garden_app.Bluetooth.BluetoothControlManager;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -137,20 +147,33 @@ public class MainActivity extends AppCompatActivity {
         infoIrragation.setText(String.valueOf(this.irrigationVal));
 
 
-        constraintLayout.setVisibility(View.INVISIBLE);
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://172.20.10.4:5000/status";
 
-        URL url = null;
-        HttpURLConnection client = null;
-        try {
-            url = new URL("http://exampleurl.com/");
-            client = (HttpURLConnection) url.openConnection();
-            client.setRequestMethod("GET");
-            client.setDoOutput(true);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    String datiLetti = "";
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        System.out.println("Response is: "+ response);
+                        System.out.println("Response is: "+ response.length());
+                        datiLetti = response;
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("That didn't work!" + error);
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+        System.out.println("Stato: " + stringRequest);
+
+        constraintLayout.setVisibility(View.INVISIBLE);
 
         auto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -361,6 +384,19 @@ public class MainActivity extends AppCompatActivity {
         this.led4Val = Integer.parseInt(values[StatusCode.LED4_VALUE]);
         this.irrigationStatus = IrrigationStatus.fromString(values[StatusCode.IRRIGATION_STATUS]);
         this.irrigationVal = Integer.parseInt(values[StatusCode.IRRIGATION_VALUE]);
+    }
+
+    private static String mostroDati(InputStream in) {
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in));) {
+            String nextLine = "";
+            while ((nextLine = reader.readLine()) != null) {
+                sb.append(nextLine);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
     }
 
 }
