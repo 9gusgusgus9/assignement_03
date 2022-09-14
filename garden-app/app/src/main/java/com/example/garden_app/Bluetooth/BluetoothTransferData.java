@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class BluetoothTransferData extends Thread{
+public class BluetoothTransferData{
     private BluetoothSocket socket;
     private OutputStream outputStream;
     private InputStream inputStream;
@@ -31,29 +31,6 @@ public class BluetoothTransferData extends Thread{
         outputStream = tmpOut;
         inputStream = tmpIn;
     }
-
-    @Override
-    public void run() {
-        int available = 0;
-        try {
-            available = inputStream.available();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        buffer = new byte[available];
-        while(true) {
-            try {
-                inputStream.read(buffer, 0, available);
-                String string = new String(buffer);
-                System.out.println(string);
-                btm.getDataFromBluetooth(string);
-            } catch (IOException e) {
-                e.printStackTrace();
-                break;
-            }
-        }
-    }
-
 
     public void write(String data){
         try {

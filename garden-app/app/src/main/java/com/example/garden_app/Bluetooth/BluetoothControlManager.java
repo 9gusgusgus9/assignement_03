@@ -63,7 +63,6 @@ public class BluetoothControlManager {
 
     public void transferData(){
         bluetoothTransferData = new BluetoothTransferData(connectThreadClient.getSocket(), this);
-        bluetoothTransferData.start();
         bluetoothTransferData.write(activity.getMessage());
     }
 

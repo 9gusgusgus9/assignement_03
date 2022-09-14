@@ -23,6 +23,10 @@ import android.widget.TextView;
 
 import com.example.garden_app.Bluetooth.BluetoothControlManager;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,6 +138,19 @@ public class MainActivity extends AppCompatActivity {
 
 
         constraintLayout.setVisibility(View.INVISIBLE);
+
+        URL url = null;
+        HttpURLConnection client = null;
+        try {
+            url = new URL("http://exampleurl.com/");
+            client = (HttpURLConnection) url.openConnection();
+            client.setRequestMethod("GET");
+            client.setDoOutput(true);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         auto.setOnClickListener(new View.OnClickListener() {
             @Override
