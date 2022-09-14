@@ -30,12 +30,18 @@ public class MainActivity extends AppCompatActivity {
 
     private AppCompatActivity activity;
 
+    private Status currentMode;
+    private LedStatus led1Status;
+    private LedStatus led2Status;
+    private LedStatus led3Status;
+    private LedStatus led4Status;
     private int led3Val;
     private int led4Val;
+    private IrrigationStatus irrigationStatus;
     private int irrigationVal;
+
     private TextView bluetoothStatus;
     private ListView listView;
-    private Status currentMode;
     private Button auto;
     private Button manual;
     private ImageButton alarm;
@@ -106,6 +112,11 @@ public class MainActivity extends AppCompatActivity {
         irrigationPiu = findViewById(R.id.irrigationPiu);
         irrigationMeno = findViewById(R.id.irrigationMeno);
 
+        this.led1Status = LedStatus.Off;
+        this.led2Status = LedStatus.Off;
+        this.led3Status = LedStatus.Off;
+        this.led4Status = LedStatus.Off;
+        this.irrigationStatus = IrrigationStatus.Close;
         this.irrigationVal = 0;
         this.led3Val = 0;
         this.led4Val = 0;
@@ -128,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setAutoMode();
-                btControlManager.transferData(Code.MODECODE);
+                btControlManager.transferData();
             }
         });
 
@@ -136,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setManualMode();
-                btControlManager.transferData(Code.MODECODE);
+                btControlManager.transferData();
             }
         });
 
@@ -145,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 status.setText("ALARM DEACTIVATE!");
                 auto.setVisibility(View.VISIBLE);
-                btControlManager.transferData(Code.ALARMCODE);
+                btControlManager.transferData();
             }
         });
 
@@ -155,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 if(led3Val < 5){
                     led3Val++;
                     infoLed3.setText(String.valueOf(led3Val));
-                    btControlManager.transferData(Code.LED3PIU);
+                    btControlManager.transferData();
                 }
             }
         });
@@ -166,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                 if(led3Val >= 1){
                     led3Val--;
                     infoLed3.setText(String.valueOf(led3Val));
-                    btControlManager.transferData(Code.LED3MENO);
+                    btControlManager.transferData();
                 }
             }
         });
@@ -177,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                 if(led4Val < 5){
                     led4Val++;
                     infoLed4.setText(String.valueOf(led4Val));
-                    btControlManager.transferData(Code.LED4PIU);
+                    btControlManager.transferData();
                 }
             }
         });
@@ -188,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
                 if(led4Val >= 1){
                     led4Val--;
                     infoLed4.setText(String.valueOf(led4Val));
-                    btControlManager.transferData(Code.LED4MENO);
+                    btControlManager.transferData();
                 }
             }
         });
@@ -206,21 +217,21 @@ public class MainActivity extends AppCompatActivity {
         led1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btControlManager.transferData(Code.LED1);
+                btControlManager.transferData();
             }
         });
 
         led2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btControlManager.transferData(Code.LED2);
+                btControlManager.transferData();
             }
         });
 
         irrigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btControlManager.transferData(Code.IRRIGATION);
+                btControlManager.transferData();
             }
         });
 
@@ -230,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
                 if(irrigationVal < 5){
                     irrigationVal++;
                     infoIrragation.setText(String.valueOf(irrigationVal));
-                    btControlManager.transferData(Code.IRRIGATIONPIU);
+                    btControlManager.transferData();
                 }
 
             }
@@ -242,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
                 if(irrigationVal >= 1){
                     irrigationVal--;
                     infoIrragation.setText(String.valueOf(irrigationVal));
-                    btControlManager.transferData(Code.IRRIGATIONMENO);
+                    btControlManager.transferData();
                 }
             }
         });
@@ -282,6 +293,11 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    public String getMessage(){
+        String string  = Status.toString(this.currentMode) + ":" + LedStatus.toString(this.led1Status) + ":" + LedStatus.toString(this.led2Status) + ":" + LedStatus.toString(this.led3Status) + ":" + LedStatus.toString(this.led4Status) + ":" + this.led3Val + ":" + this.led4Val + ":" + IrrigationStatus.toString(this.irrigationStatus) + ":" + this.irrigationVal;
+        System.out.println(string);
+        return string;
+    }
 
     private void setManualMode(){
         constraintLayout.setVisibility(View.VISIBLE);
@@ -311,10 +327,23 @@ public class MainActivity extends AppCompatActivity {
         status.setText("ALARM MODE!!");
         manual.setVisibility(View.INVISIBLE);
     }
-
+/*
     public void updateAlarmStatus(){
         currentMode = Status.Alarm;
         setAlarmMode();
+    }
+*/
+    public void updateValue(String data){
+        String[] values = data.split(":");
+        this.currentMode = Status.fromString(values[StatusCode.STATUS]);
+        this.led1Status = LedStatus.fromString(values[StatusCode.LED1_STATUS]);
+        this.led2Status = LedStatus.fromString(values[StatusCode.LED2_STATUS]);
+        this.led3Status = LedStatus.fromString(values[StatusCode.LED3_STATUS]);
+        this.led4Status = LedStatus.fromString(values[StatusCode.LED4_STATUS]);
+        this.led3Val = Integer.parseInt(values[StatusCode.LED3_VALUE]);
+        this.led4Val = Integer.parseInt(values[StatusCode.LED4_VALUE]);
+        this.irrigationStatus = IrrigationStatus.fromString(values[StatusCode.IRRIGATION_STATUS]);
+        this.irrigationVal = Integer.parseInt(values[StatusCode.IRRIGATION_VALUE]);
     }
 
 }

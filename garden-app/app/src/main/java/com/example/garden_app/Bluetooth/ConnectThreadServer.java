@@ -1,5 +1,6 @@
 package com.example.garden_app.Bluetooth;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
@@ -14,6 +15,7 @@ public class ConnectThreadServer extends Thread{
     private BluetoothServerSocket socket;
     private BluetoothAdapter adapter;
 
+    @SuppressLint("MissingPermission")
     public ConnectThreadServer(BluetoothAdapter adpt){
         adapter = adpt;
         BluetoothServerSocket tmp = null;

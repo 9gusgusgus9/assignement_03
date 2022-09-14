@@ -1,5 +1,6 @@
 package com.example.garden_app.Bluetooth;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -24,7 +25,7 @@ public class BluetoothControlManager {
         this.activity = activity;
         this.adapter = this.activity.getSystemService(BluetoothManager.class).getAdapter();
     }
-
+    @SuppressLint("MissingPermission")
     public void setUpBluetooth() {
         if (adapter == null) {
             Log.e("BluetoothConnection", "The device don't support bluetooth");
@@ -36,7 +37,7 @@ public class BluetoothControlManager {
         }
         Log.i(TAG, "setting up bluetooth");
     }
-
+    @SuppressLint("MissingPermission")
     public ArrayList<String> getDevicesAlreadyPaired(){
         Set<BluetoothDevice> devices = adapter.getBondedDevices();
         ArrayList<String> list = new ArrayList<>();
@@ -60,14 +61,14 @@ public class BluetoothControlManager {
         connectThreadClient.start();
     }
 
-    public void transferData(int data){
+    public void transferData(){
         bluetoothTransferData = new BluetoothTransferData(connectThreadClient.getSocket(), this);
         bluetoothTransferData.start();
-        bluetoothTransferData.write(data);
+        bluetoothTransferData.write(activity.getMessage());
     }
 
-    public void getDataFromBluetooth(){
-        activity.updateAlarmStatus();
+    public void getDataFromBluetooth(String data){
+        activity.updateValue(data);
     }
 
     public void disconnectBluetoothConnection(){
