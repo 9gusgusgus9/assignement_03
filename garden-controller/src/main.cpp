@@ -7,6 +7,7 @@
 #include "tasks/IrrigationTask.h"
 #include "tasks/IlluminationTask.h"
 #include "utils/manifest/Manifest.h"
+#include "utils/ConnectivityManager.h"
 
 Scheduler *scheduler;
 Task *irrigationTask;
@@ -19,6 +20,8 @@ void setup() {
     scheduler = new Scheduler();
     irrigationTask = new IrrigationTask(manifest);
     illuminationTask = new IlluminationTask(manifest);
+    ConnectivityManager* connectivityManager = new ConnectivityManager();
+
 
     irrigationTask->init(100);
     illuminationTask->init(100);
