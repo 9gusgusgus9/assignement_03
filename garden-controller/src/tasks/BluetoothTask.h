@@ -15,7 +15,7 @@ private:
     
 public:
     BluetoothTask(Manifest* manifest);
-    void init();
+    void init(int period);
     void tick();
     void computeRead();
 };
