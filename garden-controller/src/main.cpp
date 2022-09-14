@@ -19,8 +19,6 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  if(x==0){
-    btService -> sendData(string.toInt());
-    x++;
-  }
+  int val = btService->readData();
+  printf("ciao");
 }
