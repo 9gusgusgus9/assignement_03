@@ -1,24 +1,32 @@
 #include <Arduino.h>
 #include "SoftwareSerial.h"
-#include "BluetoothService.h"
-#include "ConnectivityManager.h"
+#include "utils/ConnectivityManager.h"
+#include "utils/manifest/Manifest.h"
+#include "utils/Scheduler.h"
+#include "tasks/Task.h"
+#include "tasks/IrrigationTask.h"
+#include "tasks/IlluminationTask.h"
 
-BluetoothService *btService;
-int x;
-String string = "AUTO:ON:ON:ON:ON:1:1:OPEN:1";
+Scheduler *scheduler;
+Task *irrigationTask;
+Task *illuminationTask;
 
 void setup() {
-  // put your setup code here, to run once:
-  ConnectivityManager* connManager = new ConnectivityManager();
-  btService = connManager->getBluetoothService();
+    Serial.begin(9600);
+    scheduler = new Scheduler();
+    irrigationTask = new IrrigationTask(PIN_SERVO);
+    illuminationTask = new IlluminationTask(PIN_LED1, PIN_LED2, PIN_LED3, PIN_LED4);
 
-  btService->init();
-  x = 0;
+    irrigationTask->init(100);
+    illuminationTask->init(100);
+    scheduler->init();
+
+    scheduler->addTask(irrigationTask);
+    scheduler->addTask(illuminationTask);
+  // put your setup code here, to run once:
 }
 
 void loop() {
+  scheduler->schedule();
   // put your main code here, to run repeatedly:
-
-  int val = btService->readData();
-  printf("ciao");
 }
