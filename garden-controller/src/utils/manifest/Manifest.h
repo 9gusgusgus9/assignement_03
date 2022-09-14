@@ -58,7 +58,7 @@ class Manifest{
         void setActionPeriod(int y);
 
         LedStatus getLedStatus(int led);
-        IrrigationStatus getIrrigatorStatus();
+        IrrigatorStatus getIrrigatorStatus();
         int getGardenStatus();
         int getIrrigatorIntensity();
         int getLedIntensity(int led);
