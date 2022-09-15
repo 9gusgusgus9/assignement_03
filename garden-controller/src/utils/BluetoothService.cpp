@@ -17,23 +17,30 @@ bool BluetoothService::sendMsg(Msg msg) {
 
 bool BluetoothService::isMsgAvailable() {
   while (channel->available()) {
-    char ch = (char)channel->read();
+    /*Serial.println("Available");
+    //char ch = (char)channel->read();
+    char ch = '\n';
+    Serial.println(channel-> read());
     if (ch == '\r') continue;
     if (ch == '\n') {
       availableMsg = new Msg(content);
+      Serial.println(availableMsg -> getContent());
       content = "";
       return true;
     }
     else {
       content += ch;
-    }
+    }*/
+    Serial.println(channel -> read());
+    return true;
   }
   return false;
 }
 
-Msg* BluetoothService::receiveMsg() {
+int BluetoothService::receiveMsg() {
+  Serial.println("Voglio ricevere");
   if (availableMsg != NULL) {
-    Msg* msg = availableMsg;
+    int msg = availableMsg;
     availableMsg = NULL;
     return msg;
   }

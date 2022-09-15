@@ -2,7 +2,11 @@
 #define __LED__
 
 #include "Arduino.h"
-#include "../utils/manifest/Manifest.h"
+
+enum LedStatus {
+    OFF,
+    ON
+};
 
 class Led{
 private:

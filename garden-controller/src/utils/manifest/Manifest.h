@@ -6,11 +6,6 @@
 #include "../../components/ServoMotorImpl.h"
 #include "../../components/Led.h"
 
-enum LedStatus {
-    OFF,
-    ON
-};
-
 enum IrrigatorStatus {
     OPEN,
     CLOSE,

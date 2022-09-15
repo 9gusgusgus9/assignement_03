@@ -96,6 +96,30 @@ class LedWithIntensityStatus(Enum):
             return LedWithIntensityStatus.OFF
         else:
             return LedWithIntensityStatus.OFF
+            
+    @staticmethod
+    def fromString(status):
+        if status == "1":
+            return LedWithIntensityStatus.INT1
+        elif status == "2":
+            return LedWithIntensityStatus.INT2
+        elif status == "3":
+            return LedWithIntensityStatus.INT3
+        elif status == "4":
+            return LedWithIntensityStatus.INT4
+        elif status == "0":
+            return LedWithIntensityStatus.INT0
+        else:
+            return LedWithIntensityStatus.OFF
 
     def toString(self):
-        return self.value
+        if self.value == "OFF" or self.value == "0":
+            return self.value
+        else:
+            return "ON"
+    
+    def toInt(self):
+        if self.value == "OFF":
+            return 0
+        else:
+            return self.value

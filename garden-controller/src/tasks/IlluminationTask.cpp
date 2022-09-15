@@ -19,4 +19,5 @@ void IlluminationTask::tick() {
     led4->set(this -> manifest -> getLedStatus(4));
     led3->setIntensity(this -> manifest -> getLedIntensity(3));
     led4->setIntensity(this -> manifest -> getLedIntensity(4));
+
 }

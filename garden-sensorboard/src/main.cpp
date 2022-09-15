@@ -17,7 +17,7 @@ Thermometer* tmp = new Thermometer(TMP_PIN);
 Device* device = new Device(led, tmp, photoresistor);
 const char* ssid = "iPhone di Gustavo";
 const char* password = "qwertyui";
-String serverPath = "http://172.20.10.5:5000";
+String serverPath = "http://172.20.10.4:5000";
 unsigned long timeOfLastRequest = 0;
 
 void connectToWifi(const char* ssid, const char* password){

@@ -1,6 +1,5 @@
 #include <Arduino.h>
 #include "SoftwareSerial.h"
-#include "utils/ConnectivityManager.h"
 #include "utils/manifest/Manifest.h"
 #include "utils/Scheduler.h"
 #include "tasks/Task.h"

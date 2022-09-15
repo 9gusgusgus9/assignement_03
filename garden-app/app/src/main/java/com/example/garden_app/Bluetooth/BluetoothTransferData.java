@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothSocket;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 
 public class BluetoothTransferData{
     private BluetoothSocket socket;
@@ -32,9 +33,10 @@ public class BluetoothTransferData{
         inputStream = tmpIn;
     }
 
-    public void write(String data){
+    public void write(int data){
         try {
-            outputStream.write(data.getBytes());
+            System.out.println(data);
+            outputStream.write((byte) data);
         } catch (IOException e) {
             e.printStackTrace();
         }

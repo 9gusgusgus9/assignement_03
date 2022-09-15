@@ -47,12 +47,23 @@ class Manifest:
     def setSensorboardLed(self, status):
         self.sensorboardLed = status
 
+    def setControllerLed1(self, status):
+        self.controllerLed1 = status
+
+    def setControllerLed2(self, status):
+        self.controllerLed2 = status
+    
+    def setControllerLed3(self, status):
+        self.controllerLed3 = status
+    
+    def setControllerLed4(self, status):
+        self.controllerLed4 = status
+
     def setControllerLedOn(self, value):
         self.controllerLed1 = LedStatus.ON
         self.controllerLed2 = LedStatus.ON
         self.controllerLed3 = LedWithIntensityStatus.fromValue(int(value))
         self.controllerLed4 = LedWithIntensityStatus.fromValue(int(value))
-        #bisogna impostare i valori di led 3 e 4
 
     def setControllerLedOff(self):
         self.controllerLed1 = LedStatus.OFF

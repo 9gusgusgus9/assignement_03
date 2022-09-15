@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "SerialService.h"
 
-SerialService::SerialService(){
+SerialService::SerialService(Manifest* manifest){
     MsgService.init(256);    
 }
 
@@ -15,6 +15,10 @@ String SerialService::readDataFromSerial(){
 
 void SerialService::sendDataOnSerial(String message){
     MsgService.sendMsg(message);
+}
+
+String SerialService::getCommandFromSerial(){
+    return  this -> readDataFromSerial();
 }
 
 

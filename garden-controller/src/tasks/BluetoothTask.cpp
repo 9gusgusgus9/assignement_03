@@ -2,6 +2,7 @@
 
 BluetoothTask::BluetoothTask(Manifest * manifest){
     this -> manifest = manifest;
+    this -> bluetooth = new BluetoothService(PIN_RX, PIN_TX);
 }
 
 void BluetoothTask::init(int period){
@@ -11,80 +12,67 @@ void BluetoothTask::init(int period){
 
 void BluetoothTask::computeRead(){
     if(this->bluetooth->isMsgAvailable()){
-        Msg* msg = this->bluetooth->receiveMsg();
-        this->message = msg->getContent();
-        delete msg;
+        Serial.println("Compute read");
+        this-> message = this->bluetooth->receiveMsg();
     } else {
-        this->message="";
+        this->message=-1;
     }
 }
 
 void BluetoothTask::tick(){
-    String msg = message;
+    this->computeRead();
+    int msg = message;
     switch (this -> manifest ->getGardenStatus()) {
         case AUTO:
-            break;
-        case MANUAL:
-            for(int i = 0; i < 9; i++){
-                String firstString;
-                String secondString;
-                if(i == 8){
-                    firstString = msg;
-                } else {
-                    int index = msg.indexOf(":");
-                    firstString = msg.substring(0, index-1);
-                    secondString = msg.substring(index+1, msg.length());
-                }
-                switch(i){
-                    case 0:
-                        if(firstString == "AUTO"){
-                            this -> manifest -> setGardenStatus(AUTO);
-                        } else if (firstString == "MANUAL"){
-                            this -> manifest -> setGardenStatus(MANUAL);
-                        } else if (firstString == "ALARM"){
-                            this -> manifest -> setGardenStatus(ALARM);
-                        }
-                        break;
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                        if(firstString == "ON"){
-                            this -> manifest -> setLedStatus(i, ON);
-                        } else if (firstString == "OFF"){
-                            this -> manifest -> setLedStatus(i, OFF);
-                        }
-                        break;
-                    case 5:
-                    case 6:
-                        this -> manifest -> setLedIntensity(i-2, secondString.toInt());
-                        break;
-                    case 7:
-                        if(firstString == "OPEN"){
-                            this -> manifest -> setIrrigatorStatus(OPEN);
-                        } else if (firstString == "CLOSE"){
-                            this -> manifest -> setIrrigatorStatus(CLOSE);
-                        } else if (firstString == "READY"){
-                            this -> manifest -> setIrrigatorStatus(READY);
-                        }
-                        break;
-                    case 8:
-                        this -> manifest -> setIrrigatorIntensity(firstString.toInt());
-                        break;
-                }
-                msg = secondString;
+            if(msg==10){
+                this->manifest->setGardenStatus(MANUAL);
             }
-            break;
-        case ALARM:
-            Msg* text = new Msg("ALARM:ON:OFF:ON:OFF:1:1:CLOSE:1");
-            this->bluetooth->sendMsg(*text);
-            delete text;
-            break;
-        default:
-            break;
+        case MANUAL:
+            switch (msg)
+            {
+            case 0:
+            case 1:
+                if(manifest -> getLedStatus(1+msg)==ON){
+                    manifest -> setLedStatus(1+msg, OFF);
+                } else {
+                    manifest -> setLedStatus(1+msg, ON);
+                }
+                break;
+            case 2:
+                manifest -> setLedIntensity(3, (manifest -> getLedIntensity(3)+1));
+                break;
+            case 3:
+                manifest -> setLedIntensity(3, (manifest -> getLedIntensity(3)-1));
+                break;
+            case 4:
+                manifest -> setLedIntensity(4, (manifest -> getLedIntensity(4)+1));
+                break;
+            case 5:
+                manifest -> setLedIntensity(4, (manifest -> getLedIntensity(4)-1));
+                break;
+            case 6:
+                if(manifest -> getIrrigatorStatus()==OPEN || manifest -> getIrrigatorStatus()==READY){
+                    manifest -> setIrrigatorStatus(CLOSE);
+                } else {
+                    manifest -> setIrrigatorStatus(OPEN);
+                }
+                break;
+            case 7:
+                manifest -> setIrrigatorIntensity((manifest -> getIrrigatorIntensity()+1));
+                break;
+            case 8:
+                manifest -> setIrrigatorIntensity((manifest -> getIrrigatorIntensity()-1));
+                break;
+            case 9:
+                if(manifest -> getGardenStatus() == ALARM){
+                    manifest -> setGardenStatus(MANUAL);
+                }
+            default:
+                break;
+            }
     }
 }
 
 bool BluetoothTask::isMessagePresent(){
-    return this->message.length() > 0;
+    return this->message!=-1;
 }

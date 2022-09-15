@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         infoLed4.setText(String.valueOf(this.led4Val));
         infoIrragation.setText(String.valueOf(this.irrigationVal));
 
-
+/*
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "http://172.20.10.4:5000/status";
@@ -172,14 +172,14 @@ public class MainActivity extends AppCompatActivity {
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
         System.out.println("Stato: " + stringRequest);
-
+*/
         constraintLayout.setVisibility(View.INVISIBLE);
 
         auto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setAutoMode();
-                btControlManager.transferData();
+                btControlManager.transferData(Code.MODECODE);
             }
         });
 
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setManualMode();
-                btControlManager.transferData();
+                btControlManager.transferData(Code.MODECODE);
             }
         });
 
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 status.setText("ALARM DEACTIVATE!");
                 auto.setVisibility(View.VISIBLE);
-                btControlManager.transferData();
+                btControlManager.transferData(Code.ALARMCODE);
             }
         });
 
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                 if(led3Val < 5){
                     led3Val++;
                     infoLed3.setText(String.valueOf(led3Val));
-                    btControlManager.transferData();
+                    btControlManager.transferData(Code.LED3PIU);
                 }
             }
         });
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
                 if(led3Val >= 1){
                     led3Val--;
                     infoLed3.setText(String.valueOf(led3Val));
-                    btControlManager.transferData();
+                    btControlManager.transferData(Code.LED3MENO);
                 }
             }
         });
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
                 if(led4Val < 5){
                     led4Val++;
                     infoLed4.setText(String.valueOf(led4Val));
-                    btControlManager.transferData();
+                    btControlManager.transferData(Code.LED4PIU);
                 }
             }
         });
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
                 if(led4Val >= 1){
                     led4Val--;
                     infoLed4.setText(String.valueOf(led4Val));
-                    btControlManager.transferData();
+                    btControlManager.transferData(Code.LED4MENO);
                 }
             }
         });
@@ -257,21 +257,40 @@ public class MainActivity extends AppCompatActivity {
         led1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btControlManager.transferData();
+                if (led1Status == LedStatus.Off) {
+                    led1Status = LedStatus.On;
+                } else {
+                    led1Status = LedStatus.Off;
+                }
+
+                btControlManager.transferData(Code.LED1);
+
             }
         });
 
         led2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btControlManager.transferData();
+                if(led2Status == LedStatus.On) {
+                    led2Status = LedStatus.Off;
+                } else {
+                    led2Status = LedStatus.On;
+                }
+
+                btControlManager.transferData(Code.LED2);
+
             }
         });
 
         irrigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btControlManager.transferData();
+                if(irrigationStatus == IrrigationStatus.Close) {
+                    irrigationStatus = IrrigationStatus.Open;
+                } else {
+                    irrigationStatus = IrrigationStatus.Close;
+                }
+                btControlManager.transferData(Code.IRRIGATION);
             }
         });
 
@@ -281,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
                 if(irrigationVal < 5){
                     irrigationVal++;
                     infoIrragation.setText(String.valueOf(irrigationVal));
-                    btControlManager.transferData();
+                    btControlManager.transferData(Code.IRRIGATIONPIU);
                 }
 
             }
@@ -293,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
                 if(irrigationVal >= 1){
                     irrigationVal--;
                     infoIrragation.setText(String.valueOf(irrigationVal));
-                    btControlManager.transferData();
+                    btControlManager.transferData(Code.IRRIGATIONMENO);
                 }
             }
         });
@@ -334,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getMessage(){
-        String string  = Status.toString(this.currentMode) + ":" + LedStatus.toString(this.led1Status) + ":" + LedStatus.toString(this.led2Status) + ":" + LedStatus.toString(this.led3Status) + ":" + LedStatus.toString(this.led4Status) + ":" + this.led3Val + ":" + this.led4Val + ":" + IrrigationStatus.toString(this.irrigationStatus) + ":" + this.irrigationVal;
+        String string  = Status.toString(this.currentMode) + ":" + LedStatus.toString(this.led1Status) + ":" + LedStatus.toString(this.led2Status) + ":" + LedStatus.toString(this.led3Status) + ":" + LedStatus.toString(this.led4Status) + ":" + this.led3Val + ":" + this.led4Val + ":" + IrrigationStatus.toString(this.irrigationStatus) + ":" + this.irrigationVal + "\n";
         System.out.println(string);
         return string;
     }

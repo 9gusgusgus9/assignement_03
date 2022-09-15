@@ -9,7 +9,7 @@ class BluetoothTask : public Task
 {
 private:
     BluetoothService* bluetooth;
-    String message;
+    int message;
     Manifest * manifest;
     bool isMessagePresent();
     

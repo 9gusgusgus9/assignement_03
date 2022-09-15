@@ -2,6 +2,7 @@
 #define __SERIALSERVICE__
 
 #include "MsgService.h"
+#include "manifest/Manifest.h"
 
 class SerialService{
 public:

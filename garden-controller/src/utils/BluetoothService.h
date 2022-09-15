@@ -12,12 +12,12 @@ public:
   BluetoothService(int rxPin, int txPin);
   void init();
   bool isMsgAvailable();
-  Msg* receiveMsg();
+  int receiveMsg();
   bool sendMsg(Msg msg);
 
 private:
   String content;
-  Msg* availableMsg;
+  int availableMsg;
   SoftwareSerial* channel;
 
 };

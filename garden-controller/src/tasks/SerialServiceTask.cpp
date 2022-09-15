@@ -21,7 +21,7 @@ void SerialServiceTask::tick(){
                 } else {
                     
                     int index = message.indexOf(":");
-                    firstString = message.substring(0, index-1);
+                    firstString = message.substring(0, index);
                     secondString = message.substring(index+1, message.length());
                 }
                 switch(i){
@@ -63,7 +63,7 @@ void SerialServiceTask::tick(){
                 }
                 message = secondString;
             }
-            this -> serialService -> sendDataOnSerial(this -> manifest -> getMessageStatus());
         }
+        this -> serialService -> sendDataOnSerial(this -> manifest -> getMessageStatus());
     }
 }

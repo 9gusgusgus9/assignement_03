@@ -10,13 +10,13 @@ Manifest::Manifest(){
     led3 = new Led(PIN_LED3);
     led4 = new Led(PIN_LED4);
     gardenStatus = AUTO;
-    irrigatorStatus = CLOSE;
+    irrigatorStatus = OPEN;
     led1Status = OFF;
     led2Status = OFF;
     led3Status = OFF;
     led4Status = OFF;
-    led3Intensity = 1;
-    led4Intensity = 1;
+    led3Intensity = 0;
+    led4Intensity = 0;
     irrigatorIntensity = 1;
     pausePeriod = 5000;
     actionPeriod = 1000;
@@ -72,6 +72,12 @@ void Manifest::setIrrigatorIntensity(int intensity){
 }
 
 void Manifest::setLedIntensity(int led, int intensity){
+    if (intensity > 5){
+        intensity = 5;
+    }
+    if (intensity < 0){
+        intensity = 0;
+    }
     switch(led){
         case 3:
             led3Intensity = intensity;

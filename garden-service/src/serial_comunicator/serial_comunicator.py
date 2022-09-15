@@ -22,6 +22,8 @@ class SerialComunicator:
     def close(self):
         self.ser.close()
     
-    def comunicate(manifest):
+    def comunicate(self, manifest):
         manifest.getTemperature()
-        write("sto comunicando")
+        msg = manifest.getGardenStatus().toString() + ":" + manifest.getControllerLed1().toString() + ":" + manifest.getControllerLed2().toString() + ":" + manifest.getControllerLed3().toString() + ":" + manifest.getControllerLed4().toString() + ":" + str(manifest.getControllerLed3().toInt()) + ":" + str(manifest.getControllerLed4().toInt()) + ":" + manifest.getIrrigatorStatus().toString() + ":" + str(manifest.getIrrigatorIntensity().toInt()) +"\n"
+        print(msg)
+        self.write(msg)
